@@ -1,130 +1,149 @@
 body {
-	background: #dedede;
-	font: 14px/24px "Microsoft Yahei";
-	margin: 0;
-	padding: 0;
+  background: #dedede;
+  font: 14px/24px "Microsoft Yahei";
+  margin: 0;
+  padding: 0;
 }
 
 /*header*/
-
 header {
-	background: #333;
-	height: 60px;
-}
-h1 {
-	float: left;
-	margin: 0 0 0 20px;
-}
-nav {
-	float: right;
-}
-nav ul {
-	margin: 0 12px;
-}
-nav li {
-	float: left;
-	line-height: 60px;
-	width: 80px;
-	font-size: 14px;
-}
-nav a {
-	color: #fff;
-	text-decoration: none;
-}
-nav a:hover {
-	color: #ccc;
+  background: #333;
+  height: 60px;
 }
 
-/*main*/
+h1 {
+  float: left;
+  margin: 0 0 0 20px;
+}
+
+nav {
+  float: right;
+}
+
+nav ul {
+  margin: 0 12px;
+}
+
+nav li {
+  float: left;
+  line-height: 60px;
+  width: 80px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #ccc;
+}
+
+/* main */
+main img {
+  width: 30%;
+  margin: 10px 0;
+}
+
+article h3 {
+  color: #5c6165;
+  margin: 6px 0;
+}
+
+article span {
+  color: #74677b;
+}
+
+article p {
+  text-indent: 2em;
+}
 
 article,
 aside {
-	margin: 20px;
-	border: 1px solid #cdcdcd;
-	background: #fff;
-	padding: 40px 20px;
+  margin: 20px;
+  border: 1px solid #cdcdcd;
+  background: #fff;
+  padding: 40px 20px;
 }
-article h3 {
-	color: #5c6165;
-	margin: 6px 0;
-}
-article span {
-	color: #74677b;
-}
-article p {
-	text-indent: 2em;
-}
+
 .author {
-	text-indent: 0;
+  text-indent: 0;
 }
-main img {
-	width: 30%;
-	margin: 10px 0;
-}
+
 #pic li {
-	width: 100px;
-	height: 104px;
-	border: 1px solid #ccc;
-	margin: 15px 0;
-	padding: 10px;
-	text-align: center;
-	list-style: none;
+  width: 100px;
+  height: 104px;
+  border: 1px solid #ccc;
+  margin: 15px 0;
+  padding: 10px;
+  text-align: center;
+  list-style: none;
 }
+
 #pic span {
-	color: #000;
+  color: #000;
 }
+
 #pic img {
-	width: 100%;
+  width: 100%;
 }
+
 table {
-	width: 100%;
-	border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
+
 th {
-	text-align: left;
+  text-align: left;
 }
+
 thead {
-	background: #333;
-	color: #fff;
+  background: #333;
+  color: #fff;
 }
+
 tfoot {
-	background: #ccc;
-	font-weight: 700;
+  background: #ccc;
+  font-weight: 700;
 }
 
-/*aside*/
-
+/* aside */
 aside {
-	padding-bottom: 20px;
-	text-align: center;
+  padding-bottom: 20px;
+  text-align: center;
 }
+
 aside h2 {
-	text-align: left;
+  text-align: left;
 }
-input {
-	margin: 5px 0;
-}
+
 aside span {
-	color: #ccc;
+  color: #ccc;
 }
+
+input {
+  margin: 5px 0;
+}
+
 #submit {
-	background: #3452cc;
-	color: #fff;
-	width: 100%;
-	height: 38px;
-	line-height: 38px;
-	padding: 0;
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	margin-top: 10px;
+  background: #3452cc;
+  color: #fff;
+  width: 100%;
+  height: 38px;
+  line-height: 38px;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
-/*footer*/
-
+/* footer */
 footer {
-	height: 60px;
-	color: #fff;
-	line-height: 60px;
-	text-align: center;
-	background: #000;
+  height: 60px;
+  color: #fff;
+  line-height: 60px;
+  text-align: center;
+  background: #000;
 }
+
+/*# sourceMappingURL=maps/task1_2.css.map */
