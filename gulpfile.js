@@ -26,7 +26,7 @@ gulp.task('sersass', function() {
 // 
 gulp.task('livereload', ['serve']);
 
-//---------------------sass编译,watch------------------
+//---------------------sass编译,监控------------------
 
 gulp.task('scss', function() {
 	return gulp.src('src/sass/*.scss')
