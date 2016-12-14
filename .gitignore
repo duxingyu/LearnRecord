@@ -36,14 +36,9 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-# Npm
-package.json
-
-# Gulp
-gulpfile.js
-
 # VSCode
 jsconfig.json
+.vscode
 
 # ESLint
 .eslintrc.js

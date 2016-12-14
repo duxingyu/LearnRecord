@@ -5,43 +5,35 @@ section,
 aside,
 div {
   padding: 20px;
-  border: 1px solid #999;
-}
+  border: 1px solid #999; }
 
 main {
   overflow: hidden;
-  min-width: 600px;
-}
+  min-width: 600px; }
 
 main,
 div {
-  background: #eee;
-}
+  background: #eee; }
 
 article,
 section,
 aside {
-  background: #fff;
-}
+  background: #fff; }
 
 div {
   width: 80px;
-  height: 80px;
-}
+  height: 80px; }
 
 article {
   height: 400px;
-  margin: 0 180px 0 260px;
-}
+  margin: 0 180px 0 260px; }
 
 aside {
   width: 200px;
-  float: left;
-}
+  float: left; }
 
 section {
   width: 120px;
-  float: right;
-}
+  float: right; }
 
 /*# sourceMappingURL=maps/task1_3.css.map */

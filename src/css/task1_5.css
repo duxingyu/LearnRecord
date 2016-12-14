@@ -4,6 +4,9 @@ body {
   margin: 0;
   padding: 0; }
 
+ul li {
+  list-style: none; }
+
 /*header*/
 header {
   background: #333;
@@ -28,9 +31,11 @@ nav {
       color: #ccc; }
 
 /* main */
-main img {
-  width: 30%;
-  margin: 10px 0; }
+main {
+  margin-right: 360px; }
+  main img {
+    width: 30%;
+    margin: 10px 0; }
 
 article h3 {
   color: #5c6165;
@@ -52,14 +57,18 @@ aside {
 .author {
   text-indent: 0; }
 
+#pic ul {
+  overflow: hidden;
+  padding-left: 0; }
+
 #pic li {
   width: 100px;
   height: 104px;
   border: 1px solid #ccc;
-  margin: 15px 0;
+  margin: 15px;
   padding: 10px;
   text-align: center;
-  list-style: none; }
+  float: left; }
 
 #pic span {
   color: #000; }
@@ -85,9 +94,17 @@ tfoot {
 /* aside */
 aside {
   padding-bottom: 20px;
-  text-align: center; }
+  padding-top: 10px;
+  text-align: center;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 300px; }
   aside h2 {
-    text-align: left; }
+    text-align: left;
+    font-size: 16px;
+    border-left: 4px solid #ccc;
+    padding-left: 10px; }
   aside span {
     color: #ccc; }
 
@@ -113,4 +130,4 @@ footer {
   text-align: center;
   background: #000; }
 
-/*# sourceMappingURL=maps/task1_2.css.map */
+/*# sourceMappingURL=maps/task1_5.css.map */
