@@ -1,0 +1,33 @@
+body {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+}
+div {
+	width: 150px;
+	border: 1px solid #f00;
+}
+#div1 {
+	height: 120px;
+}
+#div2 {
+	height: 100px;
+}
+#div3 {
+	height: 40px;
+}
+#div4 {
+	height: 200px;
+	border-color: #0f0;
+	margin-bottom: 10px;
+}
+@media (max-width: 640px) {
+	body {
+		flex-wrap: wrap;
+		align-items: flex-start;
+	}
+	#div4 {
+		order: -1;
+	}
+}
