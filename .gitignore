@@ -42,6 +42,3 @@ jsconfig.json
 
 # ESLint
 .eslintrc.js
-
-# test files and others.
-md

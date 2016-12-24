@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>test7</title>
+	<link rel="stylesheet" type="" href="reset.css">
+	<style>
+		#list {
+			height: 30px;
+			line-height: 30px;
+			background: #ccc;
+			border: 1px solid #000;
+			margin: 40px auto;
+			width: 400px;
+			text-align: center;
+		}
+		
+		h2 {
+			font-size: 20px;
+		}
+		
+		#list>li {
+			width: 100px;
+		}
+		
+		ul li {
+			float: left;
+		}
+		
+		ul ul {
+			display: none;
+			width: 200px;
+			height: 24px;
+			background: #ccc;
+			margin: 10px 0 0 -50px;
+		}
+	</style>
+</head>
+
+<body>
+	<ul id="list">
+		<li>
+			<h2>首页</h2>
+			<ul>
+				<li>JS教程</li>
+				<li>JS教程</li>
+				<li>JS教程</li>
+				<li>JS教程</li>
+			</ul>
+		</li>
+		<li>
+			<h2>首页</h2>
+			<ul>
+				<li>JS教程</li>
+				<li>JS教程</li>
+				<li>JS教程</li>
+				<li>JS教程</li>
+			</ul>
+		</li>
+		<li>
+			<h2>首页</h2>
+			<ul>
+				<li>JS教程</li>
+				<li>JS教程</li>
+				<li>JS教程</li>
+				<li>JS教程</li>
+			</ul>
+		</li>
+		<li>
+			<h2>首页</h2>
+			<ul>
+				<li>JS教程</li>
+				<li>JS教程</li>
+				<li>JS教程</li>
+				<li>JS教程</li>
+			</ul>
+		</li>
+	</ul>
+	<script>
+		var oList = document.getElementById('list');
+		var aH = oList.getElementsByTagName('h2');
+		var aUl = oList.getElementsByTagName('ul');
+
+		for (var i = 0; i < aH.length; i++) {
+			aH[i].timer = null;
+			fn1(i);
+		}
+
+		function fn1(i) {
+			aH[i].onmouseover = function() {
+				for (var j = 0; j < aH.length; j++) {
+					aUl[j].style.display = 'none';
+				}
+				aUl[i].style.display = 'block';
+			};
+			aH[i].onmouseout = fn2;
+			aUl[i].onmouseover = function() {
+				clearTimeout(aH[i].timer);
+			};
+			aUl[i].onmouseout = fn2;
+
+			function fn2() {
+				aH[i].timer = setTimeout(function() {
+					aUl[i].style.display = 'none';
+				}, 500);
+			}
+		}
+	</script>
+</body>
+
+</html>

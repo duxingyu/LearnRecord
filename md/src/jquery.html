@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		span a {
+			color: lawngreen;
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+	<!--<input type="button" name="" value="按钮" id="btn1">
+	<div style="width: 100px;height: 100px;background: #ccc;">
+
+	</div>-->
+	<ul>
+		<li>
+			<span>这里可以改</span><a href="javascript:;">点击！</a>
+			<span style="display: none;"><a href="javascript:;">保存</a> <a href="javascript:;">取消</a></span>
+		</li>
+		<li>
+			<span>这里可以改</span><a href="javascript:;">点击！</a>
+			<span style="display: none;"><a href="javascript:;">保存</a> <a href="javascript:;">取消</a></span>
+		</li>
+	</ul>
+	<script src="jquery.js"></script>
+	<script>
+		$(function() {
+			console.log(sum(9, 1, 2, 3, 4, '-'));
+			var oDiv = document.getElementsByTagName('div')[0];
+			// console.log(getComputedStyle(oDiv).backgroundColor);
+			// console.log(getStyle(oDiv, ' height'));
+		});
+
+		function getStyle(str, value) {
+			if (str.currentStyle) {
+				return str.currentStyle[value.trim()];
+			} else {
+				return getComputedStyle(str)[value.trim()];
+			}
+		}
+
+		function fn1(num1, num2) {
+			var arr = [];
+			var max = num1 < num2 ? num2 : num1;
+			var min = num1 < num2 ? num1 : num2;
+			for (var i = min - 1; i < max; i++) {
+				arr.push(i + 1);
+			}
+			return arr;
+		}
+
+		function sum() {
+			var num = arguments[0];
+			for (var i = 1; i < arguments.length - 1; i++) {
+				if (arguments[arguments.length - 1] === '+') {
+					num += arguments[i];
+				} else {
+					num -= arguments[i];
+				}
+			}
+			return num;
+		}
+
+		function $(type) {
+			if (typeof type == 'function') {
+				return window.onload = type;
+			} else if (typeof type == 'string') {
+				if (type.charAt(0) === '#') {
+					return document.getElementById(type.substring(1));
+				}
+			}
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+{
+	"onSave": true,
+	"javascript": {
+		"indent_size": 4,
+		"indent_char": " ",
+		"indent_with_tabs": true,
+		"eol": "\n",
+		// "保留换行"
+		"preserve_newlines": false,
+		"break_chained_methods": false,
+		"max_preserve_newlines": 2,
+		// "在括号中添加空格"
+		"space_in_paren": false,
+		"space_in_empty_paren": false,
+		// "使用JSLint严格模式"
+		"jslint_happy": false,
+		// "在一个匿名函数的括号加一个空间"
+		"space_after_anon_function": false,
+		"keep_array_indentation": false,
+		"space_before_conditional": true,
+		"unescape_strings": false,
+		"wrap_line_length": 0,
+		"e4x": false,
+		"end_with_newline": false,
+		"comma_first": false,
+		"brace_style": "collapse-preserve-inline"
+	},
+	"css": {
+		"indent_size": 4,
+		"indentCharacter": " ",
+		"indent_char": " ",
+		"indent_with_tabs": true,
+		"selector_separator_newline": true,
+		"end_with_newline": true,
+		"newline_between_rules": false,
+		"eol": "\n"
+	},
+	"html": {
+		"indent_inner_html": false,
+		"indent_with_tabs": true,
+		"indent_size": 4,
+		"indent_char": " ",
+		"indent_character": " "
+	}
+}

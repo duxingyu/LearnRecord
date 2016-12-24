@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>demo6</title>
+	<link rel="stylesheet" type="" href="reset.css">
+	<style>
+		ul {
+			width: 400px;
+			margin: 40px auto;
+		}
+		
+		li:nth-child(2n) {
+			background: powderblue;
+		}
+		
+		li span:last-of-type {
+			display: inline-block;
+			margin-left: 50px;
+		}
+	</style>
+</head>
+
+<body>
+	<ul id="list">
+		<li>
+			<input type="checkbox">
+			<span class="name">歌名</span>
+			<span>歌手</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span class="name">歌名</span>
+			<span>歌手</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span class="name">歌名</span>
+			<span>歌手</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span class="name">歌名</span>
+			<span>歌手</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span class="name">歌名</span>
+			<span>歌手</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span class="name">歌名</span>
+			<span>歌手</span>
+		</li>
+	</ul>
+	<input type="checkbox" id="all"> 全选
+	<script>
+		var oAll = document.getElementById('all');
+		var oUl = document.getElementById('list');
+		var aLi = document.getElementsByTagName('li');
+		var aInp = document.getElementsByTagName('input');
+		var num = 0;
+
+		oAll.addEventListener('click', function() {
+			for (var i = 0; i < aLi.length; i++) {
+				if (oAll.checked) {
+					aInp[i].checked = true;
+					aLi[i].style.background = '#ccc';
+					num = 6;
+				} else {
+					aInp[i].checked = false;
+					aLi[i].style.background = '';
+					num = 0;
+				}
+			}
+		}, false);
+
+		for (var i = 0; i < aInp.length - 1; i++) {
+			aInp[i].index = i;
+			aInp[i].onclick = function() {
+				this.checked ? num++ : num--;
+				aLi[this.index].style.background = this.checked ? '#ccc' : (this.index % 2 == 1 ? 'powderblue' : '#fff');
+				oAll.checked = num == aLi.length ? true : false;
+				// console.log(num);
+			}
+		}
+	</script>
+</body>
+
+</html>

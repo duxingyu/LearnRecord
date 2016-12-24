@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+		ul {
+			position: relative;
+		}
+		
+		li {
+			width: 50px;
+			height: 50px;
+			background: red;
+			margin-right: 10px;
+			list-style: none;
+			position: absolute;
+			top: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<ul id="list">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<script>
+		window.onload = function() {
+			var oUl = document.getElementById('list');
+			var aLi = document.getElementsByTagName('li');
+			var aaa = null;
+			var num = 0;
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].style.left = 60 * i + 'px';
+				aLi[i].timer = null;
+			}
+			oUl.onclick = function() {
+				clearInterval(aaa);
+				aaa = setInterval(function() {
+					if (num == aLi.length) {
+						clearInterval(aaa);
+						return;
+					}
+					move(aLi[num]);
+					num++;
+				}, 100);
+			};
+
+			function move(obj, endFn) {
+				clearInterval(obj.timer);
+				obj.timer = setInterval(function() {
+					var speed = parseInt(getComputedStyle(obj).top) + 10;
+					if (speed > 500) {
+						speed = 500;
+					}
+					obj.style.top = speed + 'px';
+					if (speed == 500) {
+						clearInterval(obj.timer);
+						endFn && endFn();
+					}
+				}, 30);
+			}
+		};
+		// move(aLi[0]);
+	</script>
+</body>
+
+</html>

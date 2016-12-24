@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>demo4:贪吃蛇</title>
+	<link rel="stylesheet" type="" href="reset.css">
+	<style>
+		div {
+			width: 50px;
+			height: 50px;
+			background: red;
+			position: absolute;
+		}
+	</style>
+	<script src="jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+	<input type="button" name="" value="stop">
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<script>
+		$(function() {
+			var $div = $('div');
+			$div.each(function(i, e) {
+				$(e).css({
+					'top': '50px',
+					'left': i * 55 + 'px'
+				});
+			});
+			var toL = null;
+			var toT = null;
+			var toR = null;
+			var toB = null;
+			var len = $div.length;
+			$(document).on('keydown', function(ev) {
+				if (ev.which == 37) {
+					clear();
+					toDis('left');
+					toL = setInterval(function() {
+						toDis('left');
+					}, 500);
+				}
+				if (ev.which == 38) {
+					clear();
+					toDis('top');
+
+					toB = setInterval(function() {
+						toDis('top');
+					}, 500);
+				}
+				if (ev.which == 39) {
+					clear();
+					toDis('right');
+					toB = setInterval(function() {
+						toDis('right');
+					}, 500);
+				}
+				if (ev.which == 40) {
+					clear();
+					toDis('bottom');
+					toB = setInterval(function() {
+						toDis('bottom');
+					}, 500);
+				}
+			});
+
+			function toDis(dis) {
+				$div.each(function(i, e) {
+					if (i < len - 1) {
+						$div[i].style.top = $div[i + 1].style.top;
+						$div[i].style.left = $div[i + 1].style.left;
+					} else {
+						switch (dis) {
+							case 'left':
+								$(e).css('left', parseInt($(e).css('left')) - 55 + 'px');
+								break;
+							case 'right':
+								$(e).css('left', parseInt($(e).css('left')) + 55 + 'px');
+								break;
+							case 'top':
+								$(e).css('top', parseInt($(e).css('top')) - 55 + 'px');
+								break;
+							case 'bottom':
+								$(e).css('top', parseInt($(e).css('top')) + 55 + 'px');
+								break;
+						}
+					}
+				});
+			}
+
+
+			function clear() {
+				clearInterval(toL);
+				clearInterval(toT);
+				clearInterval(toR);
+				clearInterval(toB);
+			}
+			// $('input').click(function(ev) {
+			// 	clearInterval(timer);
+			// 	ev.stopPropagation();
+			// })
+		});
+	</script>
+</body>
+
+</html>

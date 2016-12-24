@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>demo2</title>
+	<link rel="stylesheet" type="" href="reset.css">
+	<style>
+		.div1 {
+			width: 100%;
+			height: 50px;
+			background: red;
+			position: absolute;
+		}
+	</style>
+	<script src="jquery-3.1.1.min.js"></script>
+</head>
+
+<body style="height:3000px;">
+	<div style="height:400px;width:100px;"></div>
+	<div class="div1"></div>
+	<script>
+		$(function() {
+			var $div1 = $('.div1');
+			var dis = $div1.offset().top;
+			$(window).on('scroll', function() {
+				if ($(this).scrollTop() >= $div1.offset().top || ($(this).scrollTop() < $div1.offset().top && $(this).scrollTop() >= dis)) {
+					$div1.css('top', $(this).scrollTop());
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

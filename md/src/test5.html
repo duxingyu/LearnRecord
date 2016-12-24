@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Demo5</title>
+	<style>
+		strong {
+			color: red;
+		}
+		
+		span {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			border-radius: 20px;
+			cursor: pointer;
+			border: 1px solid #000;
+		}
+		
+		div {
+			color: #f50;
+			display: inline-block;
+			margin-left: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<p>
+		<strong>*</strong>总体评价：
+		<span></span><span></span><span></span><span></span><span></span>
+		<div></div>
+	</p>
+	<script>
+		var aSpan = document.getElementsByTagName('span');
+		var oDiv = document.getElementsByTagName('div')[0];
+		var str = null;
+		var arr = ['差', '还好', '一般', '好', '优秀'];
+
+		for (var i = 0; i < aSpan.length; i++) {
+			aSpan[i].index = i;
+			aSpan[i].onclick = function() {
+				fn1(this.index, 1);
+				str = this.index;
+			};
+			aSpan[i].onmouseover = function() {
+				fn1(this.index, 1);
+			};
+			aSpan[i].onmouseout = function() {
+				fn1(str, 0);
+			};
+
+			function fn1(that, out) {
+				for (var i = 0; i < aSpan.length; i++) {
+					aSpan[i].style.background = '';
+				}
+				if ((str != null && out == 0) || out == 1) {
+					for (var i = 0; i < that + 1; i++) {
+						if (that < 2) {
+							aSpan[i].style.background = '#ccc';
+						} else {
+							aSpan[i].style.background = '#f60';
+						}
+					}
+				}
+				oDiv.innerHTML = arr[that] ? arr[that] : '';
+			}
+		}
+	</script>
+</body>
+
+</html>
