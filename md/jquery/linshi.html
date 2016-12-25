@@ -16,13 +16,27 @@
 </head>
 
 <body style="height: 2000px;">
-	<div>
-		<input type="button" name="" value="button">
+	<div data-role="page" style="display:none;">
+		<p><a href="javascript:;">点击</a></p>
 	</div>
+	<form id="form1">
+		<input type="checkbox" name="demo">a
+		<input type="checkbox" name="demo">b
+		<input type="checkbox" value="aa" name="demo">c
+	</form>
+	<button type="button">点击</button>
+	<ul>
+
+	</ul>
 	<script>
 		$(function() {
-			$('div').on('click', 'input', function(ev) {
-				$(ev.delegateTarget).css('background', 'red');
+			var $div = $('div')
+			var $form = $('form')
+			var $input = $('button')
+			$div.show(400, function() {
+				$(this).find('a').click($.proxy(function() {
+					$(this).hide(400)
+				}, this))
 			})
 		});
 	</script>
