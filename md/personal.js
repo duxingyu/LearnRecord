@@ -99,3 +99,31 @@ function getCookie(key) {
 function removeCookie(key) {
 	setCookie(key, '', -1);
 }
+
+//	ajax
+function ajax(method, url, data, success) {
+
+	var xhr = new XMLHttpRequest();
+
+	if (method == 'get' && data) {
+		url += '?' + data;
+	}
+	xhr.open(method, url, true);
+
+	if (method == 'get') {
+		xhr.send();
+	} else {
+		xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+		xhr.send(data);
+	}
+
+	xhr.addEventListener('readystatechange', function() {
+		if (xhr.readyState == 4) {
+			if (xhr.status == 200) {
+				success && success(xhr.responseText);
+			} else {
+				alert('出错了！Err：' + xhr.status);
+			}
+		}
+	}, false);
+}

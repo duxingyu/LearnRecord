@@ -1,0 +1,134 @@
+// 			jQuery17204445736936104405_1482742334941(
+{
+	"code": 0,
+	"stoken": "17167032541311359602",
+	"sengine": {
+		"usage": 0
+	},
+	"result": {
+		"accurate": { // 精确查找
+			"upuser": [{ // up主
+				"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em>",
+				"value": "\u4e00\u62f3\u8d85\u4eba", // 用户名
+				"mid": 265279, // id
+				"url": "http:\/\/space.bilibili.com\/265279", // 个人空间
+				"s_pic": "http:\/\/i0.hdslb.com\/bfs\/face\/e0da8e3312c7a3c5110a80dce054a582cfa61a5b.jpg" // 头像src
+			}],
+			"bangumi": [{ // 番剧
+				"name": "Concrete Revolutio <em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em>\u5e7b\u60f3 \u7b2c<em class=\"suggest_high_light\">\u4e00<\/em>\u5b63",
+				"value": "Concrete Revolutio \u8d85\u4eba\u5e7b\u60f3 \u7b2c\u4e00\u5b63", // 番剧名字
+				"url": "http:\/\/www.bilibili.com\/bangumi\/i\/2741\/", // 地址
+				"s_pic": "http:\/\/i0.hdslb.com\/bfs\/bangumi\/1a59d848c8c00a57767e328947081f09a3e14e0b.jpg_52x52.jpg",
+				"spid": 5002741, // id全称
+				"season_id": 2741, // id
+				"favourite": 188160, // 追番人数
+				"click": 4535980, // 播放量
+				"isbangumi_end": 1,
+				"bgmcount": 13, // 集数?
+				"newep": 13, // 集数？
+				"starttime": 1443969000,
+				"description": "\u5728\u201c\u795e\u5316\u201d\u65f6\u4ee3\u7684\u4e1c\u4eac\uff0c\u5145\u65a5\u7740\u65e0\u6570\u7684\u82f1\u96c4\u2014\u2014\u201c\u8d85\u4eba\u201d\u3002\u4ed6\u4eec\u7684\u8bde\u751f\u7406\u7531\u5404\u6709\u4e0d\u540c\u3002\u65e2\u6709\u88ab\u90aa\u6076\u7ec4\u7ec7\u6539\u9020\u7684\u4eba\uff0c\u4e5f\u6709\u6765\u81ea\u5b87\u5b99\u7684\u4eba\u3002\u65e2\u6709\u6765\u81ea\u9b54\u6cd5\u4e16\u754c\u7684\u4eba\uff0c\u4e5f\u6709\u6765\u81ea\u53e4\u4ee3\u3001\u8eab\u4e3a\u5996\u602a\u800c\u751f\u7684\u4eba\u3002\u65e2\u6709\u88ab\u79d1\u5b66\u5bb6\u5236\u9020\u51fa\u6765\u7684\u673a\u5668\u4eba\uff0c\u4e5f\u6709\u8d85\u81ea\u7136\u7684\u53f2\u524d\u673a\u5668\u4eba\u3002\u5bf9\u4e8e\u8fd9\u4e9b\u8d85\u4eba\u7684\u8dcb\u6248\uff0c\u65e5\u672c\u653f\u5e9c\u7edd\u4e0d\u6253\u7b97\u5750\u89c6\u4e0d\u7ba1\u2014\u2014",
+				"styles": "\u6218\u6597,\u70ed\u8840,15\u5e7410\u6708,\u5947\u5e7b,\u9b54\u6cd5,\u5b8c\u7ed3\u52a8\u753b" // 标签
+			}, {
+				"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em> OVA",
+				"value": "\u4e00\u62f3\u8d85\u4eba OVA",
+				"url": "http:\/\/www.bilibili.com\/bangumi\/i\/4597\/",
+				"s_pic": "http:\/\/i0.hdslb.com\/bfs\/bangumi\/da3879e7bffa02e1405565b0337feb6d242afdbf.jpg_52x52.jpg",
+				"spid": 5004597,
+				"season_id": 4597,
+				"favourite": 125015,
+				"click": 5591945,
+				"isbangumi_end": 1,
+				"bgmcount": 6,
+				"newep": 6,
+				"starttime": 1450886400,
+				"description": "\u3000\u3000\u56e0\u4e3a\u5174\u8da3\u800c\u5f00\u59cb\u5f53\u82f1\u96c4\u7684\u7537\u4eba\u300c\u57fc\u7389\u300d\uff0c\u5728\u7ecf\u8fc7\u4e09\u5e74\u7279\u8bad\u4e4b\u5f8c\uff0c\u5f97\u5230\u4e86\u65e0\u654c\u7684\u529b\u91cf\u3002\n\u3000\u3000\u7136\u800c\uff0c\u4ed6\u5b9e\u5728\u662f\u5f3a\u8fc7\u4e86\u5934\uff0c\u6240\u4ee5\u65e0\u8bba\u591a\u5389\u5bb3\u7684\u5bf9\u624b\uff0c\u90fd\u88ab\u4ed6\u4e00\u62f3\u89e3\u51b3\u3002\u300c\u7edd\u5bf9\u5f3a\u52bf\u7684\u529b\u91cf\uff0c\u5b9e\u5728\u662f\u5f88\u65e0\u804a\u3002\u300d\u5728\u8fd9\u79cd\u666e\u901a\u70ed\u8840\u7684\u6700\u5f3a\u82f1\u96c4\u9762\u524d\uff0c\u4eca\u5929\u4e5f\u51fa\u73b0\u65b0\u7684\u654c\u8e2a\u3002\u4eca\u5929\u53ef\u4ee5\u8ba9\u4ed6\u62ff\u51fa\u8ba4\u771f\u7684\u6001\u5ea6\u5417\uff01\uff1f",
+				"styles": "\u6218\u6597,\u641e\u7b11,\u70ed\u8840"
+			}]
+		},
+		"tag": [{
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em> \u71c3",
+			"value": "\u4e00\u62f3\u8d85\u4eba \u71c3",
+			"spid": 0,
+			"ref": 280
+		}, {
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em>\u6253\u6597\u573a\u9762",
+			"value": "\u4e00\u62f3\u8d85\u4eba\u6253\u6597\u573a\u9762",
+			"spid": 0,
+			"ref": 108
+		}, {
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em>OP",
+			"value": "\u4e00\u62f3\u8d85\u4ebaOP",
+			"spid": 0,
+			"ref": 68
+		}, {
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em> \u57fc\u7389\u8001\u5e08",
+			"value": "\u4e00\u62f3\u8d85\u4eba \u57fc\u7389\u8001\u5e08",
+			"spid": 0,
+			"ref": 95
+		}, {
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em>MMD",
+			"value": "\u4e00\u62f3\u8d85\u4ebaMMD",
+			"spid": 0,
+			"ref": 43
+		}, {
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em>MAD",
+			"value": "\u4e00\u62f3\u8d85\u4ebaMAD",
+			"spid": 0,
+			"ref": 9
+		}, {
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em>\u5e08\u5f92\u4e4b\u6218",
+			"value": "\u4e00\u62f3\u8d85\u4eba\u5e08\u5f92\u4e4b\u6218",
+			"spid": 0,
+			"ref": 14
+		}, {
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em>BGM",
+			"value": "\u4e00\u62f3\u8d85\u4ebaBGM",
+			"spid": 0,
+			"ref": 3
+		}, {
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em> \u71c3\u5411",
+			"value": "\u4e00\u62f3\u8d85\u4eba \u71c3\u5411",
+			"spid": 0,
+			"ref": 22
+		}, {
+			"name": "<em class=\"suggest_high_light\">\u4e00<\/em><em class=\"suggest_high_light\">\u62f3<\/em><em class=\"suggest_high_light\">\u8d85<\/em><em class=\"suggest_high_light\">\u4eba<\/em> \u7426\u7389",
+			"value": "\u4e00\u62f3\u8d85\u4eba \u7426\u7389",
+			"spid": 0,
+			"ref": 15
+		}]
+	},
+	"page caches": {
+		"save cache": "ok"
+	},
+	"cost": {
+		"about": {
+			"timer": "accurate_suggest",
+			"total": "0.046125",
+			"check_param": "0.001046",
+			"rcache": "0.000174",
+			"prepare": "0.001404",
+			"read_data": "0.043232",
+			"wcache": "0.000249"
+		}
+	}
+} // )
+/*src   =  http://s.search.bilibili.com/main/suggest?
+jsoncallback=jQuery17204445736936104405_1482742334941&		// 
+func=suggest&				// 	方法：建议
+suggest_type=accurate&		// 类型：精确
+sub_type=tag&				// 子类型：tag标签
+main_ver=v1&				//  主要版本：v1
+highlight=&					//  高亮：
+userid=3230745&				//  用户ID
+bangumi_acc_num=1&
+special_acc_num=1&
+topic_acc_num=1&
+upuser_acc_num=3&
+tag_num=10&					//  显示数量：10
+special_num=10&
+bangumi_num=10&				//  番数：10
+upuser_num=3&				// up主数量：3
+term=一拳超人&					//  搜索词
+rnd=0.5878142781474371&
+_=1482742351023*/
