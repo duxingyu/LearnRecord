@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<base target="_blank">
+	<style>
+		input:first-child {
+			width: 200px;
+			height: 30px;
+			border-radius: 4px;
+			background: #eee;
+			font-size: 16px;
+			line-height: 30px;
+			text-indent: 10px;
+		}
+		
+		#serach {
+			width: 50px;
+			height: 30px;
+		}
+		
+		#serachResult {
+			width: 200px;
+			border: 1px solid #ccc;
+			padding: 0;
+			display: none;
+		}
+		
+		#serachResult a {
+			height: 24px;
+			font-size: 14px;
+			line-height: 24px;
+			text-indent: 10px;
+			cursor: pointer;
+			color: #000;
+			text-decoration: none;
+			display: block;
+		}
+		
+		#serachResult a:hover {
+			background: #ccc;
+		}
+		
+		.active {
+			background: #ccc;
+		}
+		
+		.suggest_high_light {
+			color: #f25d8e;
+		}
+	</style>
+</head>
+
+<body>
+	<input type="text" name="serachBox" value="">
+	<input type="button" value="搜索" id="serach">
+	<ul id="serachResult">
+	</ul>
+	<script>
+		function jQuery(data) {
+			var oUl = document.getElementById('serachResult');
+			var html = '';
+			if (data.result && data.result.tag.length) {
+				oUl.style.display = 'block';
+				for (let i = 0, len = data.result.tag.length; i < len; i++) {
+					let word = data.result.tag[i].value.split(' ');
+					let serachQ = word.length == 1 ? word[0] : word[0] + '+' + word[1];
+					html += '<li><a href="http://search.bilibili.com/all?keyword=' + serachQ + '">' + data.result.tag[i].name + '</a></li>';
+				}
+				oUl.innerHTML = html;
+			} else {
+				oUl.style.display = 'none';
+			}
+		}
+		window.onload = function() {
+			var oBox = document.getElementsByName('serachBox')[0];
+			var oSerach = document.getElementById('serach');
+			var oUl = document.getElementById('serachResult');
+			var aLi = oUl.getElementsByTagName('li');
+
+			oBox.onkeyup = function(ev) {
+				console.log(ev.keyCode)
+				if (this.value != '') {
+					var oScript = document.createElement('script');
+					oScript.src = 'http://s.search.bilibili.com/main/suggest?jsoncallback=jQuery&func=suggest&suggest_type=accurate&sub_type=tag&main_ver=v1&highlight=&userid=3230745&bangumi_acc_num=1&special_acc_num=1&topic_acc_num=1&upuser_acc_num=3&tag_num=10&special_num=10&bangumi_num=10&upuser_num=3&term=' + this.value + '&t' + new Date().getTime();
+					document.body.appendChild(oScript);
+					if (ev.keyCode == 38) {
+
+					}
+				} else {
+					oUl.style.display = 'none';
+				}
+			}
+			oSerach.onclick = function() {
+
+			}
+		}
+	</script>
+</body>
+
+</html>
