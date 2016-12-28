@@ -6,21 +6,40 @@
 	<title>demo</title>
 	<link rel="stylesheet" type="" href="reset.css">
 	<style>
-
+		div {
+			width: 50px;
+			height: 50px;
+			position: fixed;
+			background: red;
+			bottom: 0;
+			right: 0;
+			display: none;
+		}
 	</style>
 </head>
 
-<body style="height:2000px;">
-	<form action="http://www.baidu.com" method="get">
-		<input type="text" name="text" value="fff">
-		<input type="radio" value="男" name="sex">男
-		<input type="radio" value="女" name="sex">女
-		<input type="reset" name="reset">
-	</form>
+<body style="height:3000px;">
+	<div>
+
+	</div>
 	<script>
-		var form = document.getElementsByTagName('form')[0];
-		document.onkeydown = function() {
-			alert(1)
+		var oDiv = document.getElementsByTagName('div')[0];
+		window.onscroll = function() {
+			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			oDiv.style.display = scrollTop >= 500 ? 'block' : 'none';
+		}
+		oDiv.onclick = function() {
+			clearInterval(timer);
+			var speed = 0;
+			var timer = setInterval(function() {
+				scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				speed = Math.floor((0 - scrollTop) / 8);
+				if (scrollTop == 0) {
+					clearInterval(timer);
+				} else {
+					document.documentElement.scrollTop = document.body.scrollTop = scrollTop + speed;
+				}
+			}, 30);
 		}
 	</script>
 </body>

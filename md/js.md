@@ -5,4 +5,4 @@
 5. i %= x。
 6. !x 数据类型转换（boolean）。
 7. [],{}为true。
-8. getComputedStyle(str).style(IE9+)。str.currentStyle.style。
+8. getComputedStyle(str).style。str.currentStyle.style。(ie67)
