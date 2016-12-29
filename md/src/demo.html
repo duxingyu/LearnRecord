@@ -6,7 +6,7 @@
 	<title>demo</title>
 	<link rel="stylesheet" type="" href="reset.css">
 	<style>
-		div {
+		#div1 {
 			width: 50px;
 			height: 50px;
 			position: fixed;
@@ -15,13 +15,22 @@
 			right: 0;
 			display: none;
 		}
+		
+		#div2 {
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
 	</style>
+	<script src="../personal.js"></script>
 </head>
 
 <body style="height:3000px;">
-	<div>
+	<div id="div1">
 
 	</div>
+	<div id="div2"></div>
+	<input type="button" name="" value="按钮">
 	<script>
 		var oDiv = document.getElementsByTagName('div')[0];
 		window.onscroll = function() {
@@ -41,6 +50,15 @@
 				}
 			}, 30);
 		}
+		var oDiv2 = document.getElementById('div2');
+		var oInp = document.getElementsByTagName('input')[0];
+
+		oInp.onclick = function() {
+			oDiv2.style.width = '100px';
+			move(oDiv2, {
+				width: 400
+			}, 1000, 'bounceIn');
+		};
 	</script>
 </body>
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>temporary</title>
+	<style>
+		#div1 {
+			width: 100px;
+			height: 100px;
+			background: red;
+			position: absolute;
+			left: 0;
+			top: 20px;
+		}
+	</style>
+	<script src="personal.js"></script>
+</head>
+
+<body>
+	<input type="button" name="" value="按钮">
+	<div id="div1"></div>
+	<script>
+		var oInp = document.getElementsByTagName('input')[0];
+		var oDiv = document.getElementById('div1');
+		var timer = null;
+		var iSpeed = 0;
+		oInp.onclick = function() {
+			move();
+		}
+
+		function move() {
+			clearInterval(timer);
+			timer = setInterval(function() {
+
+				iSpeed += (500 - oDiv.offsetLeft) / 6;
+				iSpeed *= 0.75;
+
+				if (Math.abs(iSpeed) <= 1 && Math.abs(500 - oDiv.offsetLeft) <= 1) {
+					clearInterval(timer);
+					oDiv.style.left = '500px';
+					iSpeed = 0;
+				} else {
+					oDiv.style.left = oDiv.offsetLeft + iSpeed + 'px';
+				}
+			}, 30);
+		}
+	</script>
+</body>
+
+</html>
