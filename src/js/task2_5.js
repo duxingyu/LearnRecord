@@ -58,53 +58,71 @@ var pageState = {
 function renderChart() {
 
 	var chart = document.getElementsByClassName('aqi-chart-wrap')[0];
-	chart.innerHTML = '';
 	var city = pageState.nowSelectCity;
 	var graTime = pageState.nowGraTime;
 	var data = aqiSourceData[city];
 	var index = 0;
 	var arr = [];
 	var sum = 0;
-	// var oWidth = 0;
-	var date = [];
-	if (!chartData[city]) {
-		chartData[city] = {};
-		if (!chartData[city][graTime]) {
-			chartData[city][graTime] = [];
+	var oWidth = 0;
 
-			for (let attr in data) {
-				arr.push(data[attr]);
-				if (pageState.nowGraTime == 'day') {
-					chartData[city][graTime].push(data[attr]);
-				} else if (pageState.nowGraTime == 'week') {
-					if (index % 7 == 6) {
-						for (let i = 0; i < 7; i++) {
-							sum += arr[i];
-						}
+	chart.innerHTML = '';
+	if (!chartData[city]) chartData[city] = {};
+	if (!chartData[city][graTime]) {
+		chartData[city][graTime] = [];
+
+		for (let attr in data) {
+			arr.push(data[attr]);
+			index++;
+			if (pageState.nowGraTime == 'week') {
+				if (index % 7 == 0 || index == 91) {
+					for (let i = 0; i < arr.length; i++) {
+						sum += arr[i];
 					}
+					sum /= arr.length;
+					chartData[city][graTime].push(Math.round(sum));
 					arr = [];
-					chartData[city][graTime].push(sum / 7);
-				} else if (pageState.nowGraTime == 'month') {}
-				index++;
-				date.push(attr);
-				if (index == 91) index = 0;
+					sum = 0;
+				}
+			} else if (pageState.nowGraTime == 'month') {
+				if (index != 1 && (attr.split('-')[attr.split('-').length - 1] == '01' || index == 91)) {
+					for (let i = 0; i < arr.length - 1; i++) {
+						sum += arr[i];
+					}
+					sum /= arr.length - 1;
+					chartData[city][graTime].push(Math.round(sum));
+					arr[0] = arr[arr.length - 1];
+					arr.length = 1;
+					sum = 0;
+				}
 			}
 		}
+		if (pageState.nowGraTime == 'day') {
+			chartData[city][graTime] = arr;
+		}
 	}
-	console.log(chartData)
+	switch (pageState.nowGraTime) {
+		case 'day':
+			oWidth = 5;
+			break;
+		case 'week':
+			oWidth = 20;
+			break;
+		default:
+			oWidth = 50;
+	}
 	var scale = Math.ceil((Math.max.apply(null, chartData[city][graTime])) / 100);
-	for (let attr in chartData[city][graTime]) {
-		let cityData = chartData[city][graTime];
+
+	for (let i = 0, cityData = chartData[city][graTime]; i < cityData.length; i++) {
 		let oDiv = document.createElement('div');
-		oDiv.style.width = 5 + 'px';
-		oDiv.style.height = cityData[attr] / scale + 'px';
-		oDiv.style.background = aqiColor(cityData[attr] / scale);
+		oDiv.style.width = oWidth + 'px';
+		oDiv.style.height = cityData[i] / scale + 'px';
+		oDiv.style.background = aqiColor(cityData[i] / scale);
 		oDiv.style.position = 'absolute';
 		oDiv.style.bottom = 0;
-		oDiv.style.left = (5 + 1) * index + 'px';
-		// oDiv.title = date[index] + '：' + cityData[attr];
+		oDiv.style.left = (oWidth + 1) * i + 'px';
+		oDiv.title = cityData[i];
 		chart.appendChild(oDiv);
-		index++;
 	}
 }
 
