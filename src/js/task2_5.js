@@ -8,7 +8,7 @@ var aqiSourceData = {
   }
 };
 */
-
+// 关于
 // 以下两个函数用于随机模拟生成测试数据
 function getDateStr(dat) {
 	var y = dat.getFullYear();
@@ -58,23 +58,29 @@ var pageState = {
 function renderChart() {
 
 	var chart = document.getElementsByClassName('aqi-chart-wrap')[0];
+	// 获取当前city和graTime
 	var city = pageState.nowSelectCity;
 	var graTime = pageState.nowGraTime;
+	// 获取当前city的aqi数据
 	var data = aqiSourceData[city];
 	var index = 0;
+	// 存储临时aqi数据并处理
 	var arr = [];
+	// 用于计算出平均数
 	var sum = 0;
 	var oWidth = 0;
 
 	chart.innerHTML = '';
+	// 根据当前city及graTime是否存在创建存储或读取数据
 	if (!chartData[city]) chartData[city] = {};
 	if (!chartData[city][graTime]) {
 		chartData[city][graTime] = [];
-
+		// 根据不同graTime对数据进行处理，先存到arr中进行处理，最后push到chartData中
 		for (let attr in data) {
 			arr.push(data[attr]);
 			index++;
 			if (pageState.nowGraTime == 'week') {
+				// 当为最后数据时对剩余数据处理（index == 91）
 				if (index % 7 == 0 || index == 91) {
 					for (let i = 0; i < arr.length; i++) {
 						sum += arr[i];
@@ -85,6 +91,7 @@ function renderChart() {
 					sum = 0;
 				}
 			} else if (pageState.nowGraTime == 'month') {
+				// index != 1 有点偷懒
 				if (index != 1 && (attr.split('-')[attr.split('-').length - 1] == '01' || index == 91)) {
 					for (let i = 0; i < arr.length - 1; i++) {
 						sum += arr[i];
@@ -101,6 +108,7 @@ function renderChart() {
 			chartData[city][graTime] = arr;
 		}
 	}
+	// 根据graTime不同给定不同宽度
 	switch (pageState.nowGraTime) {
 		case 'day':
 			oWidth = 5;
@@ -111,8 +119,9 @@ function renderChart() {
 		default:
 			oWidth = 50;
 	}
+	// 由于最高aqi差距较大，进行比例调整
 	var scale = Math.ceil((Math.max.apply(null, chartData[city][graTime])) / 100);
-
+	// 渲染图表
 	for (let i = 0, cityData = chartData[city][graTime]; i < cityData.length; i++) {
 		let oDiv = document.createElement('div');
 		oDiv.style.width = oWidth + 'px';
@@ -120,6 +129,7 @@ function renderChart() {
 		oDiv.style.background = aqiColor(cityData[i] / scale);
 		oDiv.style.position = 'absolute';
 		oDiv.style.bottom = 0;
+		// 有1px右边框
 		oDiv.style.left = (oWidth + 1) * i + 'px';
 		oDiv.title = cityData[i];
 		chart.appendChild(oDiv);
@@ -188,24 +198,11 @@ function initAqiChartData() {
 	// 将原始的源数据处理成图表需要的数据格式
 	// 处理好的数据存到 chartData 中
 	pageState.nowSelectCity = '北京';
-	var chart = document.getElementsByClassName('aqi-chart-wrap')[0];
-	var initdata = aqiSourceData.北京;
-	var index = 0;
-	for (let attr in initdata) {
-
-		let oDiv = document.createElement('div');
-		oDiv.style.width = '5px';
-		oDiv.style.height = initdata[attr] / 5 + 'px';
-		oDiv.style.backgroundColor = aqiColor(initdata[attr] / 5);
-		oDiv.style.position = 'absolute';
-		oDiv.style.bottom = 0;
-		oDiv.style.left = 6 * index + 'px';
-		oDiv.title = attr + '：' + initdata[attr];
-		index++;
-		chart.appendChild(oDiv);
-	}
+	renderChart();
 }
-
+/**
+ * 根据不同的aqi赋予不同的color
+ */
 function aqiColor(obj) {
 	var color = '';
 	if (obj >= 0 && obj <= 20) {
