@@ -5,14 +5,93 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<style>
-
+		div {
+			width: 100px;
+			height: 100px;
+			background: red;
+			transition: 1s;
+		}
+		
+		.active {
+			width: 200px;
+			height: 200px;
+		}
+		
+		#c1 {
+			background: #ccc;
+		}
 	</style>
 </head>
 
 <body>
-
+	<!--<div data-aaa-bbb="abc" draggable="true"></div>
+	<div></div>-->
+	<!--<div>
+		<progress value="50" max="100"></progress>
+		<mark>55</mark>
+		<header></header>
+		<nav></nav>
+		<hgroup></hgroup>
+		<figure>
+			img/video
+			<figcaption></figcaption>
+		</figure>
+		<input type="text" name="" value="" list="id">
+		<datalist id="id">
+			<option value="js">js</option>
+		</datalist>
+		<details open>
+			<summary>展示</summary>
+			<p>详细</p>
+		</details>
+		<dialog></dialog>
+		<section></section>
+		<article></article>
+		<aside></aside>
+		<footer></footer>
+		<address>作者信息</address>
+		<time datetime="1995-10-02">时间</time>
+		<form>
+			<input type="email" value="email"><br>
+			<input type="text" name="user" autocomplete="off" autofocus required placeholder="必输，focus" pattern="\d{1,5}"><br>
+			<input type="tel" value="tel"><br>
+			<input type="url" value="url"><br>
+			<input type="serach"><br>
+			<input type="number"><br>
+			<input type="password"><br>
+			<input type="range" step="2" min="0" max="10" value="4"><br>
+			<input type="color" id="color"><br>
+			<input type="datetime-local"><br>
+			<input type="time"><br>
+			<input type="date">
+			<input type="week">
+			<input type="month">
+			<input type="submit">
+		</form>
+	</div>-->
+	<canvas id="c1" width="300" height="300"></canvas>
 	<script>
+		// var aDiv = document.querySelectorAll('div');
+		// aDiv[0].onclick = function() {
+		// 	this.classList.toggle('active');
+		// 	// history.pushState(1,'')
+		// 	console.log(this.dataset.aaaBbb);
+		// };
+
+		// // dragstart,drag,dragend
+		// aDiv[0].ondragstart = function(ev) {
+		// 		ev.dataTransfer.setData('aaa', 'bbb')
+		// 	}
+		// 	// dragenter,dragover,dragleave,drop
+		// aDiv[1].ondragover = function(ev) {
+		// 	this.style.background = 'blue';
+		// 	ev.preventDefault();
+		// };
+		// aDiv[0].ondrop = function(ev) {
+		// 	alert(ev.dataTransfer.getData('aaa'));
+		// }
 	</script>
+	<script src="temporary.js"></script>
 </body>
 
 </html>
