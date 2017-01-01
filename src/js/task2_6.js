@@ -13,27 +13,32 @@ function renderQueue() {
 // 给每个button绑定函数
 
 function changeQueue() {
-	var oVal = this.inpBox.value;
+
+	var oVal = Number(this.inpBox.value);
+	var oBtn = event.target.name;
 	if (event.target.type == 'button') {
 
-		if (oVal != '' && /\d+/.test(Number(oVal))) {
+		if (oBtn == 'outLeft') {
+			alert('您删除的元素是' + queue.shift());
+		} else if (oBtn == 'outRight') {
+			alert('您删除的元素是' + queue.pop());
+		} else {
+			// 添加元素时处理逻辑
 
-			switch (event.target.name) {
-				case 'toLeft':
+			if (oVal != '' && /\d+/.test(oVal)) {
+
+				if (oBtn == 'toLeft') {
 					queue.unshift(oVal);
-					break;
-				case 'toRight':
+				} else {
 					queue.push(oVal);
-					break;
-				case 'outLeft':
-					alert('您删除的元素是' + queue.shift());
-					break;
-				case 'outRight':
-					alert('您删除的元素是' + queue.pop());
+				}
+			} else {
+				alert('输入不合法，请重新输入！');
 			}
 
-			renderQueue();
 		}
+
+		renderQueue();
 	}
 
 }
