@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
 	browserSync = require('browser-sync').create(),
 	cleanCss = require('gulp-clean-css'),
+	pump = require('pump'),
 	plugins = require('gulp-load-plugins')();
 
 //--------------浏览器自动刷新---------------
@@ -55,6 +56,15 @@ gulp.task('js', function() {
 		.pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('compass', function(cb) {
+	pump([
+			gulp.src('src/js/*.js'),
+			plugins.uglify(),
+			gulp.dest('dist/js')
+		],
+		cb
+	);
+});
 //------------加前缀、压缩css---------------
 
 gulp.task('mincss', function() {
@@ -87,12 +97,4 @@ gulp.task('minimg', function() {
 		.pipe(gulp.dest('dist/img'));
 });
 
-//---------------编译pug----------------
-
-gulp.task('pug', function() {
-	return gulp.src('src/pug/*.pug')
-		.pipe(plugins.pug({}))
-		.pipe(gulp.dest('src'));
-});
-
-gulp.task('default', ['mincss', 'minhtml', 'minimg']);
+gulp.task('default', ['mincss', 'minhtml', 'minimg', "js"]);
