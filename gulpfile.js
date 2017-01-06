@@ -47,6 +47,9 @@ gulp.task('sass', ['sass:watch']);
 
 gulp.task('js', function() {
 	return gulp.src('src/js/*.js')
+		.pipe(plugins.babel({
+			presets: ['es2015']
+		}))
 		.pipe(plugins.uglify())
 		// .pipe(plugins.concat('src.js'))
 		/*.pipe(plugins.rename(function (path) {
@@ -56,15 +59,6 @@ gulp.task('js', function() {
 		.pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('compass', function(cb) {
-	pump([
-			gulp.src('src/js/*.js'),
-			plugins.uglify(),
-			gulp.dest('dist/js')
-		],
-		cb
-	);
-});
 //------------加前缀、压缩css---------------
 
 gulp.task('mincss', function() {
@@ -97,4 +91,4 @@ gulp.task('minimg', function() {
 		.pipe(gulp.dest('dist/img'));
 });
 
-gulp.task('default', ['mincss', 'minhtml', 'minimg', "js"]);
+gulp.task('default', ['mincss', 'minhtml', 'minimg', 'js']);
