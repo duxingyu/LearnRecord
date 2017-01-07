@@ -1,0 +1,17 @@
+#form1 {
+	width: 240px;
+	margin: 20px auto;
+}
+#form1 p {
+	float: right;
+	height: 40px;
+}
+#form1 input[type="submit"] {
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	background: lightskyblue;
+	border: 1px solid cadetblue;
+	border-radius: 5px;
+	color: #fff;
+}
