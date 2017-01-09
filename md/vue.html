@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+	<div id="app" v-bind:title="title" v-if="seen" v-html="h1">
+
+	</div>
+	<ul id="list1" v-on:click="changeColor">
+		<li v-for="todo in todos">
+			{{todo.text}}
+		</li>
+	</ul>
+	<div id="p">
+		<todo-item v-for="item in text" v-bind:todo="item"></todo-item>
+	</div>
+	<script>
+		let vue = new Vue({
+			el: '#app',
+			data: {
+				// message: 'Hello world!',
+				title: new Date(),
+				seen: true,
+				h1: '<h1>这里是一个标题</h1>'
+			}
+		});
+		let list1 = new Vue({
+			el: '#list1',
+			data: {
+				todos: [{
+					text: '列表1'
+				}, {
+					text: '列表2'
+				}, {
+					text: '列表3'
+				}]
+			},
+			methods: {
+				changeColor: function() {
+					event.target.style.color = 'red';
+				}
+			}
+		});
+		Vue.component('todo-item', {
+			props: ['todo'],
+			template: '<p>{{todo.text}}</p>'
+		})
+		let op = new Vue({
+			el: '#p',
+			data: {
+				text: [{
+					text: '文字'
+				}]
+			}
+		})
+	</script>
+</body>
+
+</html>
