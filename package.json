@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "description": "This is my learnings record.Fight!!!",
   "main": "index.js",
-  "dependencies": {
-    "gulp": "^3.9.1",
-    "eslint": "^3.11.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-preset-es2015": "^6.18.0",
     "browser-sync": "^2.13.0",
@@ -14,7 +11,7 @@
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
-    "eslint-plugin-react": "^6.8.0",
+    "eslint-plugin-react": "^6.9.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
