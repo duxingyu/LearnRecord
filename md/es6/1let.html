@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>let和const命令</title>
+	<style>
+		div {
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<script>
+		{
+			let a = 10;
+			const b = 1;
+		}
+		// ReferenceError: x is not defined
+		for (let i = 0; i < 10; i++) {}
+		// console.log(i);  err
+		const aDiv = document.querySelectorAll('div');
+		for (let i = 0; i < aDiv.length; i++) {
+			aDiv[i].addEventListener('click', () => alert(i), false);
+		}
+		/*
+		var tmp = 123;
+		if (true) {
+			tmp = 'abc';		// err
+			let tmp;
+		}*/
+		/*
+		console.log(typeof arr); 	// err
+		let arr;*/
+		/*
+		function bar(x = y, y = 2) {
+			return [x, y];			// y.err
+		}
+		bar();*/
+		/*
+		function aaa() {
+			let a = 10;
+			let a = 10;		//Uncaught SyntaxError: Identifier 'a' has already been declared
+		}
+		aaa();*/
+		/*
+		function bbb(x) {
+			let x = 1;		// Identifier...
+		}*/
+
+		/*var tmp = new Date();
+
+		function f() {
+			console.log(tmp);		// undefined
+			if (false) {
+				var tmp = 'hello world';  // let => new Date();
+			}
+		}
+		f();		*/
+		/*(function() {
+			var tmp = 1;
+			console.log(tmp);
+		}());
+		console.log(tmp);		// err
+		*/
+
+		/*const PI = 3.1415;
+		console.log(PI);
+		PI = 3;		// Uncaught TypeError: Assignment to constant variable.
+		*/
+
+		// const foo;		// Uncaught SyntaxError: Missing initializer in const declaration
+
+		/*const obj1 = {};
+		let obj2 = obj1;
+		obj1 = obj2;	// terr
+		*/
+
+		/*const foo = Object.freeze({
+			a: 1
+		});
+		delete foo.a;
+		console.log(foo);*/
+
+		// 变量声明： var, function, let, const, import, class
+
+		// let命令、const命令、class命令声明的全局变量，不属于顶层对象的属性
+		/*let a = 1;
+		window.a 	//  undefined, var => 1
+		*/
+	</script>
+</body>
+
+</html>
