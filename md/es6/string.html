@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>3:字符串的扩展</title>
+</head>
+
+<body>
+	<input type="text" name="" value="">
+	<input type="button" value="输入">
+	<div>
+
+	</div>
+	<script>
+		const aInp = document.querySelectorAll('input');
+		const oDiv = document.querySelector('div');
+		const reg = /<[a-zA-z1-9]+>|<\/[a-zA-z1-9]+>/g;
+		aInp[1].onclick = function() {
+			let val = aInp[0].value.replace(reg, '');
+			oDiv.innerHTML = val;
+
+		};
+		// console.log('\ud842\udfb7');
+		// console.log('\u20bb7');
+		// console.log('\u{20bb7}');
+
+		// console.log('\u41\u42\u43');		// 无效err
+		// console.log('\u{41}\u{42}\u{43}');
+
+		// console.log('\u{1f680}'); //🚀
+		// console.log('\u{1f680}' === '\ud83d\ude80');
+
+		// 6种方法表示一个字符
+		// '\z' == '\172' == '\x7A' == '\u007a' == '\u{7a}' == 'z'
+
+		// let s = '𠮷';
+		/*
+		console.log(s.length);		// 2
+		console.log(s.charAt(0));		// �
+		console.log(s.charAt(1));		// �
+		console.log(s.charCodeAt(0));		// 55362
+		console.log(s.charCodeAt(1));		// 57271
+		*/
+
+		/*
+		console.log(s.codePointAt(0)); // 134071
+		console.log(s.codePointAt(1)) // 57271
+		console.log(s.codePointAt(0).toString(16));		// 20bb7
+		*/
+
+		/*let s = '𠮷a';
+		for (let i of s) {
+			console.log(i.codePointAt(0).toString(16));
+		}*/
+
+		// 判断一个字符由2个或4个字节组成的最简单方法
+
+		/*function is32Bit(s) {
+			return s.codePointAt(0) > 0xffff;
+		}
+		console.log(is32Bit('𠮷'));
+		console.log(is32Bit('杜'));*/
+
+		// String.fromCodePoint(); 
+
+		// s.at()			// polyfill
+
+		// s.normalize()
+
+		// 返回boolean, 有第二参数，搜索位置
+		// s.includes('');s.startsWith();s.endWith();
+
+		let s = 'hello';
+		// 小数取整，负数及Infinity => RangeError,0=>'',s=>转为数字
+		// let ss = s.repeat(2); 
+
+		/*
+		 * 补全字符串
+		 * p1<s.length,返回s,多了截去，p2='',用空格补全
+		 * 用途：
+		 * 1. 为数值补全指定位数： 00000123
+		 * 2. 提示字符串格式：'YYYY-MM-DD'时间
+		 */
+		let ss = s.padStart(10, 'ab'); // ababahello
+		let ss1 = s.padEnd(10, 'ab'); // helloababa
+
+		/*
+		 * 模板字符串
+		 * 保留格式，多行输入，可进行嵌套
+		 * ${} : 进行运算，引用对象属性，函数调用，非字符串调用toString
+		 */
+
+		// 标签模板
+
+		// alert `123` === alert(123)
+	</script>
+</body>
+
+</html>
