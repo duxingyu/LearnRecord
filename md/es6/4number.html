@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>4:数值的扩展</title>
+</head>
+
+<body>
+	<script>
+		// 二进制和八进制
+
+		// 0b(0B),   0o(0O)
+
+		// console.log(0b111);
+		// Number('0b111');		//  转为十进制
+
+		/*
+		 * 2. Number.isFinite(),Number.isNaN()
+		 * 与isFinite(),isNaN()区别：只对数值有效
+		 */
+
+		// console.log(Number.isNaN('aaa')); // false
+		// console.log(isNaN('aaa'));		// true
+
+		// Number.parseInt(),parseFloat()
+
+		// Number.isInteger()
+		// 整数和浮点数同样存储，3 = 3.0
+
+		/*
+		 * 极小常量：Number.EPSILON
+		 * 在于为浮点数计算，设置一个误差范围
+		 */
+
+		console.log(0.1 + 0.2 === 0.3); // false
+		console.log(Math.abs((0.1 + 0.2) - 0.3) < Number.EPSILON); // true
+
+		console.log(Math.pow(2, 53) === Math.pow(2, 53) + 1); // true
+
+		// Math.MIN_SAFE_INTEGER === -Math.MAX_SAFE_INTEGER
+
+		// Math.isSafeInteger()  判断是否为安全整数
+		// 验证时需要判断参与运算的每一个值！！！
+
+		// Math.trunc()  // 	去除一个数的小数部分，可用于字符串
+		console.log(Math.trunc('1.1111'));
+
+		// Math.sign()   //   判断一个数是否为正数，负数，零
+		// 返回 +1, -1, 0, -0, NaN
+
+		console.log(Math.sign(-0)); // -0
+		console.log(Math.sign()) //  NaN
+
+		/*Math.cbrt();
+		Math.clz32();
+		Math.imul();
+		Math.fround();
+		Math.hypot();
+		...
+		*/
+
+		// 指数运算符
+
+		console.log(2 ** 4);
+		let b = 3;
+		b **= 3;
+		console.log(b);
+	</script>
+</body>
+
+</html>
