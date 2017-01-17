@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>5: 数组的扩展</title>
+</head>
+
+<body>
+	<div>1</div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<script>
+		const aDiv = document.querySelectorAll('div');
+
+		Array.from(aDiv, (x) => x.innerHTML = 11);
+		/*
+		 * Array.from方法用于将两类对象转为真正的数组：类似数组的对象、可遍历（iterable)的对象
+		 * 只要部署了Iterator接口的数据结构，都能转为数组(string，set，map)
+		 * 扩展运算符也可以将某些数据结构转为数组，背后调用的是遍历器接口（Symbol.iterator），若对象没有部署此接口，则无法转换
+		 * 类数组对象本质特征只有一点：必须有length属性
+		 * 可以将字符串转为数组，能处理unicode字符，得到字符真正长度
+		 */
+
+		/*
+		let arrayLike = {
+			'0': 'a',
+			'1': 'b',
+			'2': 'c',
+			length: 3
+		};
+		// es5
+		let arr1 = [].slice.call(arrayLike);
+
+		// es6
+		let arr2 = Array.from(arrayLike);
+
+		function fn(a, b, c, d) {
+			return Array.from(arguments);
+			// return arguments.constructor;
+		}
+
+		function fn1(...abcd) {
+			return abcd.constructor;
+		}
+		Array.from(aDiv).forEach((div) => console.log(div));
+
+		Array.from('hello');
+		Array.from(new Set([1, 2, 3, 4]));
+		*/
+
+		console.log(Array.of(1, 2, 3, 4));
+
+		// arr.copyWithin 改变原数组
+		let arr3 = [1, 2, 3, 4];
+		// arr3.copyWithin(0, 1, 2);
+
+		// arr.find(arr,this)   返回该成员，否则返回undefined
+		// arr.findIndex(arr,this)   返回index，否则返回-1
+
+		arr3.find((val, index, arr) => val == 2);
+		arr3.findIndex((val, index, arr) => val == 2);
+
+		let arr4 = [NaN];
+		console.log(arr4.indexOf(NaN)); // -1
+		console.log(arr4.findIndex((val) => Object.is(NaN, val))); // 0
+
+		// arr4.fill(1);
+		// arr.entries(),arr,keys(),arr,values()
+
+		// indexOf的缺点，不够语义化，表达不直观，使用===，会导致NaN误判
+		console.log(arr4.includes(5));
+
+		console.log(arr4.indexOf(NaN)); // false
+		console.log(arr4.includes(NaN)); // true
+	</script>
+</body>
+
+</html>
