@@ -25,22 +25,106 @@
 		foo();			// error
 		foo({x:1,y:2});*/
 
-		var x = 1;
+		function add(...rest) {
+			let sum = 0;
 
-		function f(x, y = x) {
-			console.log(y);
+			for (let val of rest) {
+				sum += val;
+			}
+			return sum;
 		}
-		f(2);
 
-		function foo(x, y = function() {
-			x = 2;
-		}) {
-			var x = 3;
-			y();
-			console.log(x);
+		function sortNum1() {
+			return [].slice.call(arguments).sort();
 		}
-		foo();
-		console.log(x)
+
+		const sortNum2 = (...num) => num.sort();
+
+		function push(array, ...arr) {
+			for (let val of arr) {
+				array.push(val);
+			}
+			console.log(array);
+		}
+		let arr = [1, 2, 3, 4, 5];
+		let arr2 = [7, 8, 9];
+		// push(arr, 1, 2, 3);
+
+		/*
+		 * 扩展运算符：rest参数的逆运算，将数组转为参数序列
+		 * 主要用于函数调用
+		 * 替代数组的apply方法
+		 */
+
+		// console.log(...arr) //  1 2 3 4 5
+
+		console.log(Math.max(...arr));
+		console.log(Math.max.apply(null, arr));
+		// arr.push(...arr);
+
+		/*
+		 * 扩展运算符的应用
+		 */
+
+		// 1,合并数组
+		// arr.concat(arr2);
+		// [...arr,...arr2];
+
+		// 2，与解构赋值结合
+
+		// a = list[0],rest = list.slice(1)
+		// [a,...rest] = list
+
+		// 3.函数的返回值		
+		// 4。字符串转数组，支持32位
+		// 5. 实现了Iterator接口的对象转数组
+
+		// var array = [...aDiv];
+
+		// name属性：匿名函数赋给变量，返回变量名，具名函数赋给变量，返回函数名
+
+		let abc = () => 1;
+		// abc.name				// abc
+
+		function f() {} // f
+
+		let abcd = function a() {}; // a
+
+		// (new Function).name			//  anonymous(匿名)
+
+		// 箭头函数，直接返回对象，需加括号
+		// this为定义时所在的对象！！！
+		// 不能使用arguments对象，不能使用yield命令
+
+		/*abc = () => ({
+			sex: '男'
+		});*/
+
+		/*window.age = 100;
+
+		let foo = () => this.age;			// 100
+
+		function foo1 () {
+			return this.age;				// 100
+		}
+
+		let obj1 = {age: 21};
+
+		console.log(foo1.call(obj1));		// 21
+		console.log(foo.call(obj1));		// 100
+		*/
+
+		window.age = 100;
+
+		function foo1() {
+			return this.age;
+		}
+
+		let obj1 = {
+			age: 21
+		};
+
+		// obj1::foo1;
 	</script>
 </body>
 
