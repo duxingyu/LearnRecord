@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Symbol</title>
+</head>
+
+<body>
+	<script>
+		let str = Symbol();
+		// typeof str    // symbol
+		/*
+		 * Symbol是原始类型的值，不是对象，不能添加属性，类似与字符串。接受一个字符串为参数，表示对Symbol实例的描述
+		 * 可转为字符串，布尔值
+		 */
+
+		let str1 = Symbol('aaa');
+		let str2 = Symbol('aaa');
+		console.log(str1 === str2); // false
+
+		// 作为对象的属性名
+
+		var a = {
+			[str2]: 'bbb'
+		};
+		a[str1] = 'aaa';
+
+		// Symbol.for为Sym值登记的名字为全局环境
+		var s1 = Symbol.for('foo');
+		var s2 = Symbol.for('foo');
+		console.log(s1 === s2); // true
+
+		console.log(Symbol.keyFor(s1)); // 'foo'
+		console.log(Symbol.keyFor(str1)); // undefined
+	</script>
+</body>
+
+</html>
