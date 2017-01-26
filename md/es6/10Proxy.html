@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Proxy</title>
+</head>
+
+<body>
+	<script>
+		var proxy = new Proxy({}, {
+			get: function(target, key) {
+				return target.name;
+			}
+
+		});
+		proxy.name = 'proxy';
+
+		// var obj = {proxy:new Proxy(target,handler)};
+
+		var person = {
+			name: 'duxy'
+		};
+
+		let proxy1 = new Proxy(person, {
+			get: function(target, prop) {
+				if (prop in target) {
+					return target[prop];
+				} else {
+					throw new ReferenceError(`Property: ${prop} does not exist`);
+				}
+			}
+		});
+
+		const obj = {
+			proxy: new Proxy(this, {
+				get: function(target, prop) {
+					return 'Good!';
+				}
+			})
+		};
+
+		let obj1 = Object.create(obj.proxy); // obj1.xxx = 'Good!'
+		obj1 = Object.create(proxy); // obj1.xxx = 'proxy'
+	</script>
+</body>
+
+</html>
