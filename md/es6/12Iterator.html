@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Iterator和for...of循环</title>
+</head>
+
+<body>
+	<script>
+		var it = makeIterator(['a', 'b']);
+
+		function makeIterator(array) {
+			let nextIndex = 0;
+			return {
+				next: function() {
+					return nextIndex < array.length ? {
+						value: array[nextIndex++],
+						done: false
+					} : {
+						value: undefined,
+						done: true
+					};
+				}
+			}
+		};
+
+		let arr = [1, 2, 3];
+		let iter = arr[Symbol.iterator]();
+
+		/*
+		 * 调用Iterator接口的场合
+		 * 1. 解构赋值
+		 * 2. 扩展运算符：可以将任何部署了Iterator接口的数据结构转为数组
+		 * 3. yield*
+		 */
+
+		const body = document.getElementsByTagName('body');
+		// body[Symbol.iterator]
+
+		// for...of循环内部调用的是数据结构的Symbol.iterator方法
+		// 对于不具有iterator接口的类数组对象，可使用Array.from转为数组
+		// 对于普通对象，可使用Object.keys方法将对象的键名生成一个数组，然后遍历这个数组
+
+		for (let item of arr) {
+			console.log(item);
+			if (item == 2) {
+				break;
+			}
+		}
+	</script>
+</body>
+
+</html>
