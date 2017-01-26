@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Set和Map数据结构</title>
+</head>
+
+<body>
+	<script>
+		var s = new Set();
+		var arr1 = [1, 3, 4, 2, 5, 43, 1];
+		var set = new Set(arr1);
+		console.log([...set]);
+		console.log(set.size);
+
+		// set实例的方法：1.操作方法：add,delete,has,clear()
+
+		// add返回原set实例
+		s.add(1).add(2).add(2) // {1,2}
+
+		s.has(1) // true
+		s.has(3) // false
+
+		// 返回boolean,删除成功返回true（原set含该值）
+		s.delete(2) // true
+		s.delete(2) // false
+
+		s.clear() // undefined   {}
+
+		// 数组去重
+
+		Array.from(new Set(arr1));
+		[...new Set(arr1)];
+
+		// 2.操作方法：keys(),values(),entried(),forEach()
+
+		// 由于set没有键名，keys()和values()行为一致
+
+		let arr2 = [];
+		for (let item of set.keys()) {
+			arr2.push(item);
+		}
+		console.log(arr2);
+		arr2 = [];
+
+		for (let value of set.values()) {
+			arr2.push(value);
+		}
+		console.log(arr2);
+		arr2 = [];
+
+		for (let [item, value] of set.entries()) {
+			arr2.push(item, value);
+		}
+		console.log(arr2);
+
+		// set结构的实例默认可遍历，默认遍历器生成函数就是他的values方法,因此可直接使用set
+
+		console.log(Set.prototype[Symbol.iterator] === Set.prototype.values);
+
+		for (let item of set) {}
+
+		// forEach 一参：fun(value,key,set),二参：this，没有返回值，遍历！！！
+
+		set.forEach((value, key) => value *= 2);
+
+		set = new Set([...set].map(x => x ** 2));
+
+		// 使用set可以容易的实现并集（Union），交集（Intersect），差集（Difference）
+		let a = new Set([1, 2, 3]);
+		let b = new Set([3, 4, 5]);
+
+		let union = new Set([...a, ...b]);
+
+		let intersect = new Set([...a].filter(x => b.has(x)));
+
+		let difference = new Set([...a].filter(x => !b.has(x)));
+
+		// 在遍历中改变原set：
+
+		// 1
+		set = new Set([...set].map(x => x * 2));
+		console.log(set);
+		// 2
+		set = new Set(Array.from(set, x => x / 2));
+		console.log(set);
+
+		// WeakSet成员只能为对象，且为弱引用，无法引用WeakSet的成员，是不可遍历的，没有size属性
+
+		const body = document.querySelector('body');
+		var data = {};
+		data[body] = 1;
+		data['[object HTMLBodyElement]'] = 2;
+
+		// Map结构类似对象，也是键值对的集合，但各种类型的值都可以当作键
+
+		var data1 = new Map();
+		data1.set(body, 1);
+
+		// 可接受一个数组作为参数，数组成员为一个个表示键值对的数组
+
+		let map = new Map([
+			['name', 'duxy'],
+			['age', 21],
+			['sex', '男']
+		]);
+
+		map.size // 3
+		map.get('name'); // 'duxy
+		map.has('age'); // true
+		map.set('time', 100);
+
+		// 只有对同一个对象的引用，Map才将其视为同一个键
+
+		map.clear();
+		map.set([1], 1);
+		map.set([1], 2);
+		map.size // 2
+
+		// 如果Map的键是一个简单类型的值，只要两个值严格相等，就视为同一个键：0===-0，NaN
+
+		map.clear();
+		map.set(+0, 12);
+		map.get(-0); // 12
+		map.set(NaN, 34);
+		map.get(Number('aaa')); // 34
+
+		// map.set 返回整个Map结构
+
+		map.clear();
+		map.set('a', 1).set('b', 2);
+
+
+		// Map结构的默认遍历器接口（Symbol.iterator）就是entries方法
+
+		for (let [key, value] of map) {
+			console.log(key, value);
+		}
+
+		// Map结构转为数组结构，结合数组的map，filter可实现Map的遍历和过滤
+
+		console.log([...map.keys()], [...map.values()], [...map]);
+
+		let map1 = new Map([...map].map(([k, v]) => [k, v * 2]));
+
+		map1.forEach((value, key) => console.log(value ** 2));
+
+		function mapToObj(map) {
+			let obj = {};
+			map.forEach((value, key) => obj[key] = value);
+			return obj;
+		}
+
+		function objToMap(obj) {
+			let map = new Map();
+			for (let k of Object.keys(obj)) {
+				map.set(k, obj[k]);
+			}
+			return map;
+		}
+	</script>
+</body>
+
+</html>
