@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>对象的扩展</title>
+	<style>
+		div {
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+	</div>
+	<script>
+		var foo = 'bar';
+
+		function fn1() {
+			return foo;
+		}
+		// var baz = {foo:foo};
+		var baz = {
+			foo,
+			fn1,
+			fn2() {
+				return this;
+			}
+		};
+		// baz.foo
+		// baz.fn1()
+
+		var baz1 = {
+			aaa: 1,
+			['bb' + 'aaa']: 2,
+			['f' + 'oo']() {
+				return this.aaa;
+			}
+		};
+
+		// Object.is()  +0 ！= -0 ，NAN === NAN
+
+		console.log(Object.is(Number('abc'), NaN)); // true
+		console.log(Object.is(-0, +0)); // false
+
+		// Object.assign 用于对象的合并，将源对象的所有可枚举属性，复制到目标对象，属性相同后者覆盖前者，只拷贝自身属性，且为浅拷贝
+
+		var target = {
+			a: 0
+		};
+		var source1 = {
+			a: 1
+		};
+		var source2 = {
+			b: 23
+		};
+		// target.a = 1
+		Object.assign(target, source1, source2);
+
+		/*
+		 * 属性的遍历
+		 * 1. for...in => 自身及继承的可枚举属性（不含Symbol属性)
+		 * 2. Object.keys(obj) => 自身可枚举（不含Symbol）
+		 * 3. Object.getOwnPropertyNames(obj) => 自身属性（不含Symbol）
+		 * 4. Object.getOwnPropertySymbols(obj) => 自身Symbol属性
+		 * 5. Reflect.ownKeys(obj) => 自身所有属性
+		 */
+	</script>
+</body>
+
+</html>
