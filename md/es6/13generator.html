@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Generator函数</title>
+	<style>
+		div {
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+
+	</div>
+	<script>
+		function* hello() {
+			yield 'hello';
+			yield 'world';
+			return 'ending';
+		}
+		var hw = hello();
+
+		function* fn1() {
+			let arr = [1, 2, 3];
+			for (let item of arr) {
+				yield item;
+			}
+			return arr;
+		}
+
+		/*
+		 * 1. yield语句不能用在普通函数中，如在generator函数中含有另一个普通函数
+		 * 2. 如果用在一个表达式中，必须放在圆括号内
+		 * 3. 用作函数参数或赋值表达式的右边，可以不加
+		 */
+
+		function* fn2() {
+			yield 'hello';
+			setTimeout(function() {
+				// yield 'world';   // error
+			}, 1000);
+		}
+
+		function* fn3() {
+			let a = 1;
+			a = a + (yield 1);
+			// a = a + yield;   //error
+			// a = a + yield 1;     // error
+			return a;
+		}
+
+		function* fn4() {
+			yield 'start';
+			console.log(fnx(yield '传入一个数字'));
+			return 'end';
+		}
+		var s4 = fn4();
+		s4.next();
+		s4.next();
+		s4.next(13);
+
+		function fnx(a = 0) {
+			return a + 1;
+		}
+
+		// Generator函数执行后，返回一个遍历器对象，该对象本身也具有Symbol.iterator属性，执行后返回自身
+
+		s4[Symbol.iterator]() === s4 // true
+
+		// next方法的参数
+
+		function* fn5() {
+			for (let i = 0; true; i++) {
+				let reset = yield i;
+				if (reset) i = -1;
+			}
+		}
+		let s5 = fn5();
+		s5.next();
+		s5.next(1);
+
+		function* fn6(x) {
+			let y = 2 * (yield(x + 1));
+			let z = yield(y / 3);
+			return (x + y + z);
+		}
+
+		// for...of循环可以自动遍历Generator函数时生成的Iterator对象，此时不需要调用next方法
+
+		// 一旦next方法的返回对象done=true，循环终止，且不包含返回对象，因此return的返回值不包含在内
+		let arr = [];
+
+		function* fn7() {
+			yield 1;
+			yield 2;
+			yield 3;
+			return 'end';
+		}
+		for (let item of fn7()) {
+			arr.push(item);
+		}
+		console.log(arr); // [1,2,3]
+
+		function* objIter() {
+			let keys = Object.keys(this);
+
+			for (let key of keys) {
+				yield [key, this[key]];
+			}
+		}
+
+		let obj = {
+			name: 'duxy',
+			age: 21,
+			[Symbol.iterator]: objIter
+		};
+		for (let [key, value] of obj) {
+			console.log(`${key}: ${value}`);
+		}
+
+		// 除for...of外，扩展运算符，解构赋值，Array.from方法都可以将Generator函数返回的Iterator对象作为参数
+
+		[...fn7()];
+		Array.from(fn7()); {
+			let [x, y, z] = fn7();
+		}
+
+		// Generator.prototype.throw()
+		// Generator.prototype.return() 返回给定的值，并终结遍历
+
+		let s7 = fn7();
+		s7.next();
+		s7.return('end'); // {value:'end',done: true}
+		s7.next();
+
+		// yield*语句：用来在一个Generator函数中执行另一个Generator函数
+		// 任何数据结构只要有Iterator接口，都可以被yield*遍历
+
+		function* fn8() {
+			yield 'start fn8()';
+			yield 'end';
+		}
+
+		function* fn9() {
+			yield 'start fn9()';
+			fn8(); // 无效
+			// yield fn8();    // 返回一个遍历器对象
+			yield 'end';
+		}
+
+		//////////////////
+
+		function* fn10() {
+			yield 'start fn10()';
+			yield* fn8();
+			yield 'end';
+		}
+		var a = 1;
+
+		function* fn11() {
+			yield 'start';
+			a++;
+			return a;
+		}
+
+		function* fn12() {
+				yield 'start';
+				yield* fn11();
+				yield 'end';
+			}
+			// a = 2
+		function* fn13() {
+			yield 1;
+			yield 2;
+			return 3;
+		}
+
+		function* fn14() {
+			yield 'start';
+			console.log(yield* fn13()); // 打印3
+			return 'end';
+		}
+
+		// Geneartor函数总是返回一个遍历器对象，这个遍历器是Generator函数的实例，也继承了Generator函数的prototype对象上的方法
+		fn13.prototype.hello = () => 'a';
+		var s13 = fn13();
+		console.log(s13.hello());
+
+		// 如果把Generator当作普通的构造函数，不会生效，因为总返回遍历器对象，而不是this对象
+
+		function* fn15() {
+			this.a = 11;
+		}
+		var s15 = fn15();
+		s15.a // undefined
+
+		// 不能跟new命令一起用，会报错
+
+		// s15 = new fn15();      // error
+
+		function* changeColor(obj) {
+			while (true) {
+				yield 'green';
+				yield 'red';
+			}
+		}
+	</script>
+</body>
+
+</html>
