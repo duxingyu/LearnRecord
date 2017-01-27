@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Class</title>
+</head>
+
+<body>
+	<script>
+		function Fn1(x, y) {
+			this.x = x;
+			this.y = y;
+		}
+		Fn1.prototype.toString = function() {
+			return `(${this.x}, ${this.y})`;
+		}
+
+		class Fna {
+			constructor(x, y) {
+				this.x = x;
+				this.y = y;
+			}
+
+			toString() {
+				return `(${this.x}, ${this.y})`;
+			}
+		}
+
+		Object.assign(Fna.prototype, {
+			disX() {
+				return this.x;
+			},
+			disY() {
+				return this.y;
+			}
+		});
+
+		// 类的内部所有定义的方法，都是不可枚举的（如Fna:constructor，toString）
+		Object.keys(Fna.prototype); // [disX,disY]
+		Object.getOwnPropertyNames(Fna.prototype); // [constructor,toString,disX,disY]
+
+		// 类的构造函数，不使用new无法调用
+		// 实例属性除非显式定义在其本身（定义在this对象上），否则都是定义在原型上
+
+		let fa = new Fna(3, 4);
+
+		fa.hasOwnProperty('x'); // true
+		fa.hasOwnProperty('toString'); // false
+
+		// class不存在变量提升
+		// 类也可以使用表达式的形式定义
+		const cla1 = class Fnx {};
+		// Fnx只在Class内部有定义，不需要可以省略
+		const cla2 = class {};
+
+		class Fnb extends Fna {
+			constructor(x, y, z) {
+				super(x, y);
+				this.z = z;
+			}
+			toString() {
+				return `${this.z}, ${super.toString()}`;
+			}
+		}
+
+		let fb = new Fnb(2, 3, 4);
+
+		Fnb.__proto__ === Fna
+		Fnb.prototype.__proto__ === Fna.prototype
+
+		// Object.getPrototypeOf()可以用来从子类上获取父类，判断一个类是否继承了另一个类
+
+		Object.getPrototypeOf(Fnb) === Fna;
+
+		/*
+		 * super既可以当作函数使用，也可以当作对象使用
+		 * 1. 作为函数调用，代表父类的构造函数，子类的构造函数必须执行一次super函数，相当于A.prototype.constructor.call(this)
+		 * 2. 作为对象，指向父类的原型对象（super.show() = A.prototype.show())
+		 * 3. 由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，无法通过super调用
+		 * 4. 由于对象总是继承其他对象，所以可以在任意对象中使用super
+		 */
+
+		class A {
+			constructor(x, y) {
+				this.x = x;
+				this.y = y;
+			}
+			show() {
+				return `x: ${this.x}, y: ${this.y}`;
+			}
+		}
+		class B extends A {
+			constructor(x, y) {
+				super(x, y); // 1 
+			}
+			show() {
+				return super.show(); // 2
+			}
+			showX() {
+				return this.x;
+				// return super.x;      // undefined
+			}
+			static getName() {
+				return this.name;
+			}
+
+		}
+
+		let b = new B(3, 4);
+	</script>
+</body>
+
+</html>
