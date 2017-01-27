@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Promise对象</title>
+	<style>
+		div {
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+
+	</div>
+	<script>
+		const oDiv = document.querySelector('div');
+
+		// Promise对象是一个构造函数
+
+		function timeout(ms) {
+			return new Promise((resolve, reject) => {
+				setTimeout(resolve, ms, 'done');
+			});
+		}
+
+		timeout(2000).then((value) => {
+			console.log(value);
+		});
+
+		/*let pro1 = new Promise((res, rej) => {
+			console.log('Promise');
+			res();
+		});
+		pro1.then(() => console.log('Resolved'));
+		console.log('Hello!');*/
+
+		function fn1() {
+			console.log(1);
+		}
+
+		function fn2() {
+			console.log(2);
+		}
+
+		function fn3() {
+			console.log(3);
+		}
+		let pro2 = new Promise((res, rej) => {
+			console.log('start');
+			res();
+		});
+		pro2.then(fn1)
+			.then(fn2)
+			.then(fn3);
+	</script>
+</body>
+
+</html>
