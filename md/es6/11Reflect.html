@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Reflect</title>
+</head>
+
+<body>
+	<script>
+		`
+		  Reflect：为了操作对象而提供的API
+		 1. 将Object对象的一些明显属于语言内部的方法，放到Reflect对象上，
+		 2. 修改某些Object方法的返回结果，让其变得更合理
+		 3. 让Object操作都变成函数行为，某些Object操作是命令式的（如name in obj，delete obj[name]）
+		 4. Reflect对象的方法和Proxy对象的方法一一对应，使Proxy对象可以方法地调用对应的Reflect方法完成默认行为，作为修改行为的基础
+		`
+
+		const obj = {
+			foo: 1,
+			bar: 2,
+			get baz() {
+				return this.foo + this.bar;
+			},
+			set baz(value) {
+				return this.foo = value;
+			}
+		};
+
+		` 
+      1. Reflect.get(target, name, receiver);
+      查找并返回target对象的name属性，如果没有该属性，返回undefined
+    `
+		Reflect.get(obj, 'foo'); // 1
+		Reflect.get(obj, 'x'); // undefined
+
+		`如果name属性部署了Getter，则读取函数的this绑定receiver`
+
+		const obj1 = {
+			foo: 10,
+			bar: 20
+		};
+
+		Reflect.get(obj, 'baz'); // 3
+		Reflect.get(obj, 'baz', obj1); // 30
+
+		`
+      2. Reflect.set(target, name, value, receiver);
+      设置target对象的name属性等于value
+      如果name属性设置了Setter，则...
+    `;
+
+		`
+      3. Reflect.has(obj,name);
+      对应name in obj
+    `
+
+		'foo' in obj
+		Reflect.has(obj, 'foo');
+
+		`
+      3. Reflect.deleteProperty(obj,name);
+      对应delete obj[name];
+      删除成功，或被删除的不存在返回true，失败，被删除的依然存在，返回false
+    `
+
+		delete obj.aaa;
+		Reflect.deleteProperty(obj, 'aaa');
+
+		`
+     4.  Reflect.construct(target,args)
+     等同于new target(...args)，提供一种不使用new，来调用构造函数的方法
+    `
+
+		function Obj2(x, y) {
+			this.x = x;
+			this.y = y;
+		}
+
+		Obj2.prototype = {
+			show() {
+				return 1;
+			},
+			display() {
+				return 2;
+			},
+			z: 3,
+			constructor: Obj2
+		};
+		var obj2x = new Obj2(1, 2);
+		var obj2y = Reflect.construct(Obj2, [1, 2]);
+
+		`
+      5. Reflect.getPrototypeOf(obj)
+      用于读取对象的__proto__属性，对应Object.getPrototypeOf(obj)
+    `;
+
+		`一个对象的隐式原型指向构造该对象的构造函数的原型`;
+
+		`
+      6. Reflect.setPrototypeOf(obj)
+      用于设置对象的__proto__属性，对应Object.setPrototypeOf(obj)
+    `;
+
+		`
+      7. Reflect.apply(func,thisArg,args);
+      等同于Function.prototype.apply.call(func,thisArg,args),用于绑定this对象后执行给定函数
+    `;
+		`
+      8. Reflect.defineProperty(target,propertyKey,attrs)
+      等同与Object.defineProperty
+    `
+
+		Reflect.defineProperty(obj, 'year', {
+			value: 2017
+		});
+
+		`
+      9. Reflect.getOwnPropertyDescriptor(target,.Key)
+      等同于Object.getOwnPropertyDescriptor
+    `
+
+		Reflect.getOwnPropertyDescriptor(obj, 'year');
+		// {value: 2017, writable: false, enumerable: false, configurable: false}
+
+		`
+      10. Reflect.isExtensible(target);
+      对应Object.isExtensible,返回boolean，是否可扩展
+      参数非对象，返回false(chrome:err)
+    `
+		Reflect.isExtensible(obj); // true
+		`
+      11. Reflect.preventExtensions(target);
+      对应Object...，让一个对象变为不可扩展，返回boolean，表示操作是否成功，非对象返回该参数(chrome:err)
+    `
+		Reflect.preventExtensions(obj); // true
+
+		`
+      12. Reflect.ownKeys(target)
+      返回对象的所有属性(Array)，包括Symbol
+    `
+		Reflect.ownKeys(obj); // ['foo',...]
+
+
+		const queueObservers = new Set();
+		const observe = fn => queueObservers.add(fn);
+		const observable = obj => new Proxy(obj, {set
+		});
+
+		function set(target, key, value, receiver) {
+			const result = Reflect.set(target, key, value, receiver);
+			queueObservers.forEach(observe => observe());
+			return result;
+		}
+		const person = observable({
+			name: 'duxy',
+			age: 23
+		});
+
+		function print() {
+			console.log(`${person.name},${person.age}`);
+		}
+		observe(print);
+	</script>
+</body>
+
+</html>
