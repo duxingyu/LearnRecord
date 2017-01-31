@@ -140,7 +140,7 @@ s.codePointAt(0) > 0xFFFF
 1. 函数参数的默认值，不能使用let和const再次声明，惰性求值。
 2. 函数的length属性，指定参数默认值后将失真。返回没有指定的个数。 rest参数也不计入。
 3. rest参数中的变量代表一个数组。
-4. **扩展运算符（spread）**将一个数组转为用逗号分割的参数序列。主要用于函数调用。如`arr.push(...arr1)`。可以用来取代apply方法。如`Math.max(...arr)`。应用：
+4. **扩展运算符（spread）**将一个数组转为用逗号分割的参数序列。主要用于函数调用。内部使用for...of循环。如`arr.push(...arr1)`。可以用来取代apply方法。如`Math.max(...arr)`。应用：
     1. 合并数组：`arr.concat(arr1,arr2) => [...arr1,...arr2]`
     2. 与解构赋值结合：`[a,...arr1] = arr`
     3. 函数的返回值。
@@ -181,3 +181,139 @@ s.codePointAt(0) > 0xFFFF
 9. `Object.keys()`,`Object.values()`,`Object.entries()`。
 10. `*b` 将rest（解构赋值）/扩展运算符引入对象。
 11. `*` `Object.getOwnPropertyDescriptor(obj)`返回指定对象所有自身属性（非继承）的描述对象。
+
+## **9. Symbol**
+1. Symbol是JS语言的第七种数据类型。对象的属性名有两种：字符串，Symbol。不能使用new命令，因为生成的Symbol是一个原始类型的值，不是对象。类似与字符串，不能添加属性。
+2. 可以接受一个字符串作为参数，表示对象Symbol实例的描述。主要是为了在控制台显示，或转为字符串时，容易区分。
+3. Symbol函数的参数只表示对当前值的描述，因此相同参数的Symbol函数的返回值不等。
+4. 不能与其他类型的只进行运算。会报错。但可以显式转为字符串（String()，sym.toString()）。可以转为布尔值。`if(sym)`。
+5. 作为属性名，对于一个对象有多个模块构成的情况很有用。作为属性名，不能使用点运算符。在对象内部，使用Symbol值定义属性时，必须放在[]内。可以用于定义一组常量，保证这组常量的值都不等。
+6. 用途：消除魔术字符串。将其改为变量，值使用Symbol。
+7. 非私有属性，遍历可以使用`Object.getOwnPropertySymbols(obj)`，`Reflect.ownKeys(obj)`。由于不会被常规方法遍历得到，可以为对象定义一些非私有，但又希望只用于内部的方法。
+8. `Symbol.for()`接受一个字符串作为参数，没有创建，然后返回该值。有返回该值。只能为Symbol.for创建的才会搜索到。Symbol.for为Symbol值登记的名字，是全局环境的，可以在不同的 iframe 或 service worker 中取到同一个值。
+
+### **1. 内置的Symbol值**
+1. `Symbol.hasInstance`：指向一个内部方法，当其他对象使用instanceof运算符，判断是否为该对象的实例时，会调用这个方法。`class A{[Symbol.hasInstance](obj){}}`。
+2. `Symbol.isConcatSpreadable`：等于一个布尔值，表示该对象使用`Array.prototype.concat()`方法时，是否可以展开，默认可以展开，值为`undefined`或`true`都可以展开。
+3. `Symbol.species`：指向当前对象的构造函数。创造实例时，默认调用该方法。默认写法：`static get [Symbol species(){return this}`。
+4. `Symbol.match`。
+5. `Symbol.replace`。
+6. `Symbol.search`。
+7. `Symbol.split`。
+8. `Symbol.iterator`：指向该对象的默认遍历器方法。
+9. `Symbol.toPrimitive`：转为原始类型值时调用。
+10. `Symbol.toStringTag`：指向一个方法。可以用来 定制`[object Object]·中object后的字符串。
+11. `Symbol.unscopables`。
+
+## **10. Set和Map数据结构**
+部署了同值相等算法（如Object.is()）。
+### **1. Set，WeakSet**
+1. Set接受一个数组（或类数组对象）作为参数，用来初始化。
+2. 数组去重：`[...new Set(arr)]`，`Array.from(new Set(arr))`。
+3. 实例属性：
+    1. `constructor`：Set函数。
+    2. `size`：成员总数。
+4. 实例方法：
+    1. 操作方法：
+        1. `add(value)`：返回改变后set。
+        2. `delete(value)`：返回boolean。
+        3. `has(value)`：返回boolean。
+        4. `clear()`
+    2. 遍历方法：（顺序：插入顺序）
+        1. `keys()`：遍历器对象。
+        2. `values()`：遍历器对象。同keys()。
+        3. `entries()`：遍历器对象。
+        4. `forEach(fn(key,value,set),this)`：没有返回值。
+5. 在遍历操作中，同步改变原来的Set结构，没有直接方法。
+6. WeakSet成员只能是对象。成员对象为弱引用，意味着：无法引用WeakSet的成员，因此WeakSet是不可遍历的。方法：add,delete,has。没有size属性。WeakSet的一个用处，是储存DOM节点，而不用担心这些节点从文档移除时，会引发内存泄漏。
+
+### **2. Map和WeakMap**
+1. Map类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。可以接受一个数组作为参数。该数组的成员是一个个表示键值对的数组。
+2. 实例属性与方法与Set大体相同，除去add，增加`get(value)`，`set(key,value)`。默认遍历方法为entries方法。
+3. 与其他数据结构的转换：map=>array,array=>map,map=>obj,obj=>map,map=>json（对象json，数组json),json=>map。
+4. WeakMap应用：DOM节点作为键名，部署私有属性。
+
+## **11. Proxy**
+1. Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种**元编程（meta programming）**，即对编程语言进行编程。
+2. Proxy 实际上**重载（overload）**了点运算符，即用自己的定义覆盖了语言的原始定义。`new Proxy(target, handler)`。
+3. Proxy 实例也可以作为其他对象的原型对象。
+4. `Proxy.revocable`返回一个可取消的Proxy实例。该方法的一个使用场景是，目标对象不允许直接访问，必须通过代理访问，一旦访问结束，就收回代理权，不允许再次访问。
+5. 在 Proxy 代理的情况下，目标对象内部的this关键字会指向 Proxy 代理。有些原生对象的内部属性，只有通过正确的this才能拿到，所以 Proxy 也无法代理这些原生对象的属性。
+6. 一个技巧是将 Proxy 对象，设置到object.proxy属性，从而可以在object对象上调用。
+6. Proxy 对象可以拦截目标对象的任意属性，这使得它很合适用来写 Web 服务的客户端。同理，Proxy 也可以用来实现数据库的 ORM 层。
+
+### **1. Proxy实例的方法**
+1. `get(target, propKey, receiver)`：
+2. `set(target, propKey, value, receiver)`：返回boolean。
+3. `has(target, propKey)`：返回boolean。
+4. `deleteProperty(target, propKey)`：返回boolean。
+5. `ownKeys(target)`：拦截`Object.getOwnPropertyNames(proxy)`、`Object.getOwnPropertySymbols(proxy)`、`Object.keys(proxy)`返回一个数组。
+6. `getOwnPropertyDescriptor(target, propKey)`：返回属性的描述对象。
+7. `defineProperty(target, propKey, propDesc)`：返回boolean。
+8. `preventExtensions(target)`：返回boolean。
+9. `getPrototypeOf(target)`：返回一个对象。
+10. `isExtensible(target)`：返回boolean。
+11. `setPrototypeOf(target, proto)`：返回boolean。
+12. `apply(target, object, args)`：拦截 Proxy 实例作为函数调用的操作。
+13. `construct(target, args)`：拦截 Proxy 实例作为构造函数调用的操作。
+
+```javascript
+var obj = {
+    name: 'duxy',
+    proxy: new Proxy(this,{}
+```
+
+## **12. Reflect**
+1. Reflect对象与Proxy对象一样，也是ES6 为了操作对象而提供的新 API。
+2. 设计目的：
+    1. 将Object对象的一些明显属于语言内部的方法，放到Reflect对象上
+	2. 修改某些Object方法的返回结果，让其变得更合理
+	3. 让Object操作都变成函数行为，某些Object操作是命令式的（如name in obj，delete obj[name]）
+	4. Reflect对象的方法和Proxy对象的方法一一对应，使Proxy对象可以方法地调用对应的Reflect方法完成默认行为，作为修改行为的基础
+3. 使用Proxy实现**观察者模式（Observer mode）**，函数自动观察数据对象，一旦对象有变化，函数就会自动执行。
+```javascript
+const queuedObservers = new Set();
+
+const observe = fn => queuedObservers.add(fn);
+const observable = obj => new Proxy(obj, {set});
+
+function set(target, key, value, receiver) {
+  const result = Reflect.set(target, key, value, receiver);
+  queuedObservers.forEach(observer => observer());
+  return result;
+}
+const obj = observable({name:'duxy'});
+function print(){
+    console.log('改变了！');
+}
+observe(print);
+```
+### **1. 静态方法**
+1. `Reflect.apply(target,thisArg,args)`：等同于Function.prototype.apply.call(func, thisArg, args)，用于绑定this对象后执行给定函数。
+2. `Reflect.construct(target,args)`：等同于new target(...args)，这提供了一种不使用new，来调用构造函数的方法。
+3. `Reflect.get(target,name,receiver)`：查找并返回target对象的name属性，如果没有该属性，返回undefined。如果name属性部署了读取函数（getter），则读取函数的this绑定receiver。
+4. `Reflect.set(target,name,value,receiver)`：Reflect.set方法设置target对象的name属性等于value。
+5. `Reflect.defineProperty(target,name,desc)`：Reflect.defineProperty方法基本等同于Object.defineProperty，用来为对象定义属性。
+6. `Reflect.deleteProperty(target,name)`：Reflect.deleteProperty方法等同于delete obj[name]，用于删除对象的属性。该方法返回一个布尔值。如果删除成功，或者被删除的属性不存在，返回true；删除失败，被删除的属性依然存在，返回false。
+7. `Reflect.has(target,name)`：Reflect.has方法对应name in obj里面的in运算符。
+8. `Reflect.ownKeys(target)`：用于返回对象的所有属性。
+9. `Reflect.isExtensible(target)`：对应Object.isExtensible，返回一个布尔值，表示当前对象是否可扩展。
+10. `Reflect.preventExtensions(target)`：对应Object.preventExtensions方法，用于让一个对象变为不可扩展。它返回一个布尔值，表示是否操作成功。
+11. `Reflect.getOwnPropertyDescriptor(target, name)`：基本等同于Object.getOwnPropertyDescriptor，用于得到指定属性的描述对象。
+12. `Reflect.getPrototypeOf(target)`：用于读取对象的__proto__属性，对应Object.getPrototypeOf(obj)。
+13. `Reflect.setPrototypeOf(target, prototype)`：方法用于设置对象的__proto__属性，对应Object.setPrototypeOf(obj, newProto)。
+
+## **13. Iterator和for...of循环**
+Iterator的遍历过程是这样的。
+（1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。
+（2）第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。
+（3）第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。
+（4）不断调用指针对象的next方法，直到它指向数据结构的结束位置。
+每一次调用next方法，都会返回数据结构的当前成员的信息。具体来说，就是返回一个包含value和done两个属性的对象。其中，value属性是当前成员的值，done属性是一个布尔值，表示遍历是否结束。
+1. 调用Iterator接口的场合
+    1. 解构赋值。
+    2. 扩展运算符。
+    3. yield*后面跟可遍历结构。
+    4. 任何接受数组作为参数的场合。
+2. 遍历器对象的`return()`：如果for...of循环提前退出（出错，break，continue），调用此方法，`throw()`：配合Generator函数使用，一般用不到。
+3. for...of循环内部调用的是数据结构的Symbol.iterator方法。
