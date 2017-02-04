@@ -335,3 +335,32 @@ Iterator的遍历过程是这样的。
 3. 正常情况下，await命令后面是一个 Promise 对象。如果不是，会被转成一个立即resolve的 Promise 对象。await命令后面的 Promise 对象如果变为reject状态，则reject的参数会被catch方法的回调函数接收到。只要一个await语句后面的 Promise 变为reject，那么整个async函数都会中断执行。这时可以将第一个await放在try...catch结构里面，这样不管这个异步操作是否成功，第二个await都会执行。另一种方法是await后面的 Promise 对象再跟一个catch方法，处理前面可能出现的错误。
 4. 多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发。`await Promise.all([getFoo(), getBar()])`
 5. await命令只能用在async函数之中，如果用在普通函数，就会报错。
+
+## **16.Class**
+1. 类的内部所有定义的方法，都是不可枚举的（non-enumerable）。
+2. constructor方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加。默认返回实例对象（即this），完全可以指定返回另外一个对象。类的构造函数，不使用new是没法调用的，会报错。
+3. Class不存在**变量提升（hoist）**，这种规定的原因与下文要提到的继承有关，必须保证子类在父类之后定义。与函数一样，类也可以使用表达式的形式定义。
+4. Class之间可以通过extends关键字实现继承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。
+5. 子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。
+6. 在子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。
+7. 子类的__proto__属性，表示构造函数的继承，总是指向父类.子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。
+8. 只要是一个有prototype属性的函数，就能被子类继承。由于函数都有prototype属性（除了Function.prototype函数），因此A可以是任意函数。
+9. Object.getPrototypeOf方法可以用来从子类上获取父类。因此，可以使用这个方法判断，一个类是否继承了另一个类。
+10. super这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。第一种情况，super作为函数调用时，代表父类的构造函数。super()在这里相当于A.prototype.constructor.call(this)。作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。第二种情况，super作为对象时，指向父类的原型对象(A.prototype = super)。通过super调用父类的方法时，super会绑定子类的this。由于对象总是继承其他对象的，所以可以在任意一个对象中，使用super关键字。
+11. 在Class内部可以使用get和set关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为。
+12. 类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。父类的静态方法，可以被子类继承。静态方法也是可以从super对象上调用的。
+13. `*b` 类的实例属性可以用等式，写入类的定义之中。类的静态属性只要在上面的实例属性写法前面，加上static关键字就可以了。
+14. `*` 为class加了私有属性。方法是在属性名之前，使用#表示。
+```javascript
+Object.setPrototypeOf = function (obj, proto) {
+  obj.__proto__ = proto;
+  return obj;
+}
+Object.setPrototypeOf(B.prototype, A.prototype);
+// 等同于
+B.prototype.__proto__ = A.prototype;
+
+Object.setPrototypeOf(B, A);
+// 等同于
+B.__proto__ = A;
+```
