@@ -101,19 +101,29 @@ function removeCookie(key) {
 }
 
 //	ajax
-function ajax(method, url, data, success) {
+function ajax(url, {
+	type = 'get',
+	dataType = 'json',
+	data,
+	success
+} = {}) {
 
 	var xhr = new XMLHttpRequest();
 
-	if (method == 'get' && data) {
+	if (type == 'get' && data) {
 		url += '?' + data;
 	}
-	xhr.open(method, url, true);
+	xhr.open(type, url, true);
 
-	if (method == 'get') {
+	if (type == 'get') {
 		xhr.send();
 	} else {
-		xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+		if (dataType == 'json') {
+			xhr.setRequestHeader('content-type', 'application/json');
+			data = JSON.stringify(data);
+		} else if (dataType == 'form') {
+			xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+		}
 		xhr.send(data);
 	}
 
@@ -122,7 +132,7 @@ function ajax(method, url, data, success) {
 			if (xhr.status == 200) {
 				success && success(xhr.responseText);
 			} else {
-				alert('出错了！Err：' + xhr.status);
+				console.log('出错了！Err：' + xhr.status);
 			}
 		}
 	}, false);
