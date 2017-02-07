@@ -42,3 +42,5 @@ jsconfig.json
 
 # ESLint
 .eslintrc.js
+
+dist
