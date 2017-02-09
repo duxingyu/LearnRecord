@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		
+		#wrap {
+			width: 100%;
+			position: absolute;
+			text-align: center;
+			bottom: 0;
+		}
+		
+		#wrap span {
+			width: 50px;
+			height: 50px;
+			background: red;
+			margin: 5px;
+			display: inline-block;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrap">
+		<span>1</span>
+		<span>2</span>
+		<span>3</span>
+		<span>4</span>
+		<span>5</span>
+	</div>
+	<script>
+		const oDiv = document.getElementById('wrap');
+		const aSpan = oDiv.getElementsByTagName('span');
+		document.documentElement.addEventListener('mouseover', () => {
+			let X = event.clientX;
+			let Y = event.clientY;
+			for (let i = 0; i < 5; i++) {
+				let x = aSpan[i].offsetLeft + aSpan[i].offsetWidth / 2 - X;
+				let y = aSpan[i].offsetTop + aSpan[i].offsetHeight / 2 + oDiv.offsetTop - Y;
+				console.log(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+			}
+		}, false);
+	</script>
+</body>
+
+</html>
