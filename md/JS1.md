@@ -1,4 +1,4 @@
-﻿# JS高程记录1
+﻿# JS笔记1（数据类型）
 
 标签（空格分隔）： 未分类
 
@@ -7,64 +7,54 @@
 ## 1. script标签相关
 1. defer属性：脚本会被延迟到整个页面都解析完毕后再运行。先下载，后延迟执行。会先于`document.DOMContentLoaded`事件执行。多个顺序执行。
 2. async属性：异步执行，先下载，会在`window.load`事件前执行，`DOMContentLoaded`事件前或后执行。多个执行顺序不定。
+3. 通过指定type属性为自定义值，可以使浏览器忽略其中内容。但依然存在于DOM中。可以通过获取节点的text属性读出内容。
+4. 允许设置一个integrity属性，写入该外部脚本的Hash签名，用来验证脚本的一致性。
+5. 浏览器解析到script标签时，会暂停页面渲染。因为JS可以修改DOM。浏览器会同时下载多个脚本，但会顺序执行。
+6. 对于同域名下的资源（脚本，样式，图片），同时下载有数量限制（6）。不同域名没有。所以，通常把静态文件放在不同的域名之下，以加快下载速度。
+7. 如果不指定协议，浏览器默认采用HTTP协议下载。根据页面本身的协议来决定加载协议，可以采用`src="//fn.js"`。
+两者若在`DOMContentLoaded`事件前执行，则此时dom树已渲染完毕。若没有依赖关系。async更好。
+## 2. 数据类型及判断
+1. 基本数据类型：`string`,`number`,`boolean`,**`null`**,`undefined`。复杂数据类型：`object`。
+2. typeof：返回字符串：`string`,`number`,`boolean`,`object`,`undefined`,**`function`**。**小写**
+3. instanceof：判断复杂数据类型。右边为对象非字符串形式（如Array）。**一般为大写**
+4. Object.prototype.toString.call(null)：返回`"[object Null]"`。
+5. Null的主要用途：
+    1. 对象作为变量，参数时初始化。
+    2. 垃圾回收机制。
+6. 会转换为false的值：false,空字符串，0或`NaN`，null，undefined。
 
-两者若在`DOMContentLoaded`事件前执行，则此时dom树已渲染完毕。
-## 2. 特殊操作符相关
-### 1. typeof
-typeof null 为object。typeof undefined为undefined，未声明及未初始化的var变量返回undefined。
+## 3. Number类型相关
+1. 正零与负零(Object.is)，整数小数部分。小数精度问题。NaN(Object.is)。
+2. 数值转换：Boolean值转为0/1，**null转为0，undefined转为NaN**，空字符串转为0，对象先调用`valueOf()`，如果为NaN，则调用toString(),`([].toString() => '')（有关数组要谨慎！）`。**一元加操作符与Number转型函数相同（如+new Date/true）**
+3.  parseInt()可以指定基数来进行进制转换（**转为十进制**）,parseFloat()只解析十进制值。数字转为相应进制：`toString(基数)`。
+4. `toFixed()`：将一个数转为指定位数小数的字符串表示。
+5. `toExponential()`：科学计数法。
+6. `toPrecision()`：有效数字。（补小数/科学计数）
 
-## 3. Null类型相关
-1. `null`表示一个空对象指针（没有对象该有的方法和属性）。因此typeof操作符检测时会返回`object`。
-2. 若定义的变量准备用来保存对象，最好将其初始化为null。
-3. `null == undefined`。`Boolean(null) => false`。
-4. 判断数据类型：`Object.prototype.toString.call()`。
+## 4. String类型相关
+1. `String()`有toString方法则调用，null返回null，undefined返回undefined。**加号操作符与String相同（如true+'')**
+2. base64转码：atob(),btoa()。要将非ASCII码字符（如汉字）转为Base64编码：`btoa(encodeURIComponent(str))`,`decodeURIComponent(atob())`。
+3. charAt同方括号表示法，charCodeAt，同接收一个参数。返回字符或字符编码/空字符串或NaN。
+4. concat同+操作符。
+5. `slice(start,end)`：负值从后数，`substr(start,length)`：length，`substring(start,end)`：大值减小值。
+6. indexOf，lastIndexOf。
+7. trim，trimLeft，trimRight。
+8. toLowerCase，toUpperCase。
+9. localeCompare()，比较两个字符串。
+10. String.fromCharCode。
 
-## 4. Boolean类型相关
-会转换为false的值：`false`,空字符串，0或NaN，null，undefined。
-
-## 5. Number类型相关
-1. 正零与负零，整数小数部分。小数精度问题。
-2. 能够表示的数值范围：`Number.MAX_VALUE ~ Number.MIN_VALUE`，正无穷与负无穷：`Number.NEGATIVE_INFINITE(-infinite) ~ Number.POSITIVE_INFINITE(+infinite)`。能够精确表示的整数：`Number.MAX_SAFE_INTEGER ~ Number.MIN_SAFE_INTEGER`。
-3. `NaN`。表示一个本来要返回数值的操作数未返回数值的情况。0/0 = NaN, 1/0 = Infinite, -1/0 = -Infinite。
-4. 数值转换：Boolean值转为0/1，null转为0，undefined转为NaN，空字符串转为0，对象先调用`valueOf()`，如果为NaN，则调用`toString()`([].toString() => '')。
-5.  parseInt()可以指定基数来进行进制转换,parseFloat()只解析十进制值。
-
-### 包装对象相关
-1. `toString()`：接受一个参数，表示输出的进制。如果直接为数字，`10.tonString()`会报错，因为会将点解析小数点，解决方式：加括号，再加一个点，属性方法方括号形式。先转换进制，后输出相应的字符串表示。
-2. `toFixed()`：将一个数转为指定位数小数的字符串表示。
-3. `toExponential()`：科学计数法 。
-4. `toPrecision()`：有效数字。
-5. 构造函数和转型函数不同。
-
-## 6. String类型相关
-1. 字符串一旦创建，他们的值就不能改变。
-2. `String()`有toString方法则调用，null返回null，undefined返回undefined。
-3. base64转码：atob(),btoa()。要将非ASCII码字符（如汉字）转为Base64编码：`btoa(encodeURIComponent(str))`,`decodeURIComponent(atob())`。
-
-### 包装对象相关
-1. charAt同方括号表示法，charCodeAt，同接收一个参数。返回字符或字符编码/空字符串或NaN。
-2. concat同+操作符。
-3. slice，substr，substring。
-4. indexOf，lastIndexOf。
-5. trim，trimLeft，trimRight。
-6. toLowerCase，toUpperCase。
-7. localeCompare()，比较两个字符串。
-8. String.fromCharCode。
-
-## 7. 操作符相关
+## 5. 操作符相关
 1. */%-: 非数值调用Number()。
 2. +: 有字符串，非字符串调用toString或String。
-3. <>: 转换为数值。NaN。
-4. ==： 数值优先，valueOf。
+3. <>: 转换为数值。**NaN与任何值比较均为false**。
+4. ==： 数值优先，valueOf。(**Boolean,Number,String**)
 5. ,操作符用于赋值时，返回表达式最后一个。
 
-垃圾回收机制：标记清除，引用计数，优化内存：将全局变量和全局对象的属性值设为null来解除引用，让值脱离执行环境。
-所有函数的参数都是按值传递的。复制。
-
-## 8. 对象
+## 6. 对象
+使用new操作符时如果不传参数可以省略圆括号。
 ### 1. array
 1. `valueOf()`：返回该数组。
-2. `toString()`：返回有数组中每个值的字符串形式拼接的以逗号分割的字符串。
+2. `toString()`：返回有数组中每个值的字符串形式拼接的以逗号分割的字符串。特殊：**[] => '',[1] => '1'**
 3. `Array.isArray()`。iframe。
 4. 不改变原数组：join，concat，slice，迭代方法（fun,this)：every，some（返回boolean），map，filter（返回数组）,forEach。indexOf，lastIndexOf（返回index/-1）。reduce，reduceRight((prev,next,index,array),初值)。
 5. 改变原数组：push，unshift（返回length），pop，shift（返回去掉的值），splice（返回被删除的数组），sort（>0换位置），reverse。
@@ -106,16 +96,6 @@ typeof null 为object。typeof undefined为undefined，未声明及未初始化�
 
 ### 6. Math
 1. min，max，ceil，floor，round，random，abs，pow，sqrt。
-
-## 7. Object
-1. constructor。
-2. toString。
-3. valueOf。
-4. hasOwnProperty。
-5. isPrototypeOf。
-6. propertyIsEnumerable。
-7. keys。
-8. getOwnPropertyNames。
 
 ## 8. JSON
 1. JSON.stringify：第二参数为数组，表示要转换的属性。第三参数用来提高可读性。字符串或数字（空格数）。
