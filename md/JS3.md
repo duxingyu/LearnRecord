@@ -1,4 +1,4 @@
-﻿# JS笔记3
+﻿# JS笔记3（DOM）
 
 标签（空格分隔）： 未分类
 
@@ -8,9 +8,8 @@
 节点类型：Document，DocumentType(`<! DOCTYPE html>`)，Attribute，Element，Text，Comment，DocumentFragment。
 ### 1. 特性相关的属性
 1. Node.nodeName(tagName)，Node.nodeType。
-2. Node.nodeValue：返回一个字符串，表示当前节点本身的文本值，该属性可读写。Text，Comment可读写，其他返回null。
 3. **Node.textContent**：返回当前节点和它的所有后代节点的文本内容。Text，Comment与nodeValue相同，读取整个文档：`document.documentElement.textContent`。
-4. Node.baseURI：返回一个字符串，表示当前网页的绝对路径/null。可以使用HTML的`<base>`标签，改变该属性的值。只读。
+3. Node.baseURI：返回一个字符串，表示当前网页的绝对路径/null。可以使用HTML的`<base>`标签，改变该属性的值。只读。
 
 ### 2. 相关节点的属性
 1. Node.ownerDocument：返回当前节点所在的顶层文档对象，即document对象。
@@ -22,15 +21,13 @@
 1. **Node.appendChild()，Node.insertBefore()，Node.removeChild()，Node.replaceChild()。分别返回添加，插入，移除，被替换的节点。**
 2. **Node.hasChildNodes()是否拥有子节点。**
 3. **Node.cloneNode()。参数为true，表示是否要克隆子节点。事件不会被克隆。**
-4. **Node.contains()**：接受一个节点作为参数，返回一个布尔值，表示参数节点是否为当前节点的后代节点。Node.compareDocumentPosition()类似。
-5. Node.isEqualNode()。所谓相等的节点，指的是两个节点的类型相同、属性相同、子节点相同。
-6. Node.normalize()：用于清理当前节点内部的所有Text节点。它会去除空的文本节点，并且将毗邻的文本节点合并成一个。
+4. Node.contains()，Node.isEqualNode()，Node.normalize()。
 
 ### 4. NodeList对象，HTMLCollection对象
 #### 1. **NodeList对象**
 NodeList实例对象是一个类似数组的对象，它的成员是节点对象。可能是动态集合，也可能是静态集合。
 #### 2. **HTMLCollection对象**
-节点的集合，返回一个类似数组的对象。实例对象的成员只能是**Element节点，都是动态集合，可以用id属性或name属性引用节点元素**，实例的item方法，可以根据成员的位置参数（从0开始），返回该成员。如`document.forms/links/images/embeds`
+节点的集合，返回一个类似数组的对象。实例对象的成员只能是**Element节点，都是动态集合，可以用id属性或name属性引用节点元素**，实例的item方法，可以根据成员的位置参数（从0开始），返回该成员。如`document.forms/links/images/embeds/anchors`
 
 ### 5. ParentNode接口，ChildNode接口
 #### 1. **ParentNode接口**
@@ -48,14 +45,10 @@ NodeList实例对象是一个类似数组的对象，它的成员是节点对象
 4. replaceWith()：被取代。**
 
 ## 2. document节点
-1. document.doctype(`<!DOCTYPE html>`，**document.documentElement(`html`)**，document.defaultView（`window`）。
-2. document.body，document.head。
+1. document.doctype(`<!DOCTYPE html>`，**document.documentElement(`html`)**.
+2. document.body/head/title/**referrer（当前文档访问来源）/URL/domain（可以设置，跨域）**。
 3. document.activeElement返回当前文档中获得焦点的那个元素。
 4. document.forms/images/embeds/links/scripts（`HTMLCollection`）/styleSheets。
-5. document.URL，document.documentURI相同（HTML）。静态。
-6. document.domain，document.lastModified。
-7. **document.location：href，protocol，host，hostname，port，pathname，serach，hash，user，password。assign()：跳转到另一网页。reload()参数为true优先从服务器加载，设为false优先本地缓存。replace()应用：当脚本发现当前是移动设备时，就立刻跳转到移动版网页。**
-8. **document.referrer（当前文档访问来源）**，title，characterSet。
 9. document.readyState：loading（加载HTML代码阶段尚未完成解析），interactive（加载外部资源阶段时），complete。
 10. **document.designMode：控制文档能否编辑，值为on/off。**
 11. document.implementation.hasFeature()，判断浏览器部署了哪些接口。
@@ -110,7 +103,7 @@ NodeList实例对象是一个类似数组的对象，它的成员是节点对象
 4. **dispatchEvent()：参数是一个Event对象的实例，返回boolean，是否调用了Event.preventDefault()。**
 
 ### 2. 事件传播
-1. 事件捕获阶段。**div-body-html-document**
+1. 事件捕获阶段。**div-body-html-document-window**
 2. 处于目标阶段。
 3. 事件冒泡阶段。
 4. 事件委托。
@@ -132,14 +125,14 @@ Event构造函数只能指定事件名，不能在事件上绑定数据。
 
 ## 6. 事件种类
 ### 1. 鼠标事件
-1. click，dblclick。事件发生顺序：mousedown => mouseup => click。
+1. click，dblclick。事件发生顺序：mousedown => mouseup => click。（click在按下回车键时也触发）
 2. mousedown，mouseup，mousemove。
-3. **mouseenter：事件只触发一次。而只要鼠标在节点内部移动，mouseover事件会在子节点上触发多次。mouseout，mouseleave。关于事件冒泡有点问题**
+3. **mouseenter：事件只触发一次。不冒泡。而只要鼠标在节点内部移动，mouseover事件会在子节点上触发多次。mouseout，mouseleave。关于事件冒泡有点问题**
 4. contextmenu。
 5. 鼠标事件使用MouseEvent对象表示，它继承UIEvent对象和Event对象。
-6. event对象属性：**altKey，ctrlKey，metaKey，shiftKey，button，buttons，clientX，clientY，movementX，movementY，screenX，screenY**，relatedTarget属性返回事件的次要相关节点。
+6. event对象属性：**altKey，ctrlKey，metaKey，shiftKey，button，buttons，clientX，clientY，movementX，movementY，screenX，screenY，pageX，pageY**，relatedTarget属性返回事件的次要相关节点。
 7. wheel：鼠标滚轮事件。继承了MouseEvent、UIEvent、Event的属性，以及deltaX，deltaY，deltaZ，deltaMode。WheelEvent构造函数。
-8. 键盘事件：keyup，keydown，keypress，key。
+8. 键盘事件：keyup，keydown，keypress，key，textInput。
 
 ### 2. 进度事件
 1. XMLHttpRequest对象发出的HTTP请求的过程、<img>、<audio>、<video>、<style>、<link>加载外部资源过程。下载和上传都会发生进度事件。
